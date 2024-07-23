@@ -1,23 +1,35 @@
 /* src/components/Login.module.css */
 
+.parent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* 親要素がビューポート全体の高さを占めるように */
+}
+
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #f4f4f4; /* 背景色を設定 */
+    height: 300px;
+    width: 300px;
+    background-color: #f4f4f4; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
   
   .title {
     font-size: 2rem;
     margin-bottom: 20px;
     color: #333;
+    margin-bottom: 100px;
   }
   
   .loginButton {
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 25px 35px;
+    font-size: 24px;
     font-weight: bold;
     color: #fff;
     background-color: #007bff;

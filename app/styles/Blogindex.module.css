@@ -1,0 +1,83 @@
+/* Blogindex.module.css */
+
+/* コンテナ全体のスタイル */
+.container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+  }
+  
+  /* メインコンテンツのスタイル */
+  .mainContent {
+    flex: 3;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  /* サイドバーのスタイル */
+  .sidebar {
+    flex: 1;
+    padding: 20px;
+    background-color: #e0e0e0;
+  }
+  
+  /* 投稿記事のリストのスタイル */
+  .articleList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* 各投稿記事のスタイル */
+  .article {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+  }
+  
+  /* 記事のコンテンツのスタイル */
+  .articleContent {
+    margin-bottom: 10px;
+  }
+  
+  /* 記事のタイトルのスタイル */
+  .articleContent h2 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  /* 記事の内容のスタイル */
+  .articleContent p {
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  
+  /* 投稿日時のスタイル */
+  .articleContent small {
+    color: #666;
+  }
+  
+  /* 投稿者のスタイル */
+  .articleUser {
+    font-style: italic;
+  }
+  
+  /* 読み込み中のメッセージのスタイル */
+  .loading {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+  }
+  
+  /* エラーのメッセージのスタイル */
+  .error {
+    text-align: center;
+    font-size: 1.2em;
+    color: red;
+  }
+  
+
+  

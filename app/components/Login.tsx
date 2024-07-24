@@ -5,6 +5,8 @@ import { auth, provider } from '../hooks/firebaseConfig';
 import { signInWithPopup } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import styles from '../styles/Login.module.css'; 
+import { FcGoogle } from "react-icons/fc";
+
 
 const Login: React.FC = () => {
   const router = useRouter(); 
@@ -27,10 +29,13 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.parent}>
-    <div className={styles.container}>
-      <h1 className={styles.title}>ログイン</h1>
-      <button className={styles.loginButton} onClick={handleLogin}>Googleで続行</button>
-    </div>
+      <div className={styles.container}>
+        <h1 className={styles.title}>ログイン</h1>
+        <button className={styles.loginButton} onClick={handleLogin}>
+          <FcGoogle className={styles.icon} />
+          Googleで続行
+        </button>
+      </div>
     </div>
   );
 };

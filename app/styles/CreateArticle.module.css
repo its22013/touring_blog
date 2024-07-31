@@ -1,0 +1,97 @@
+/* CreateArticle.module.css */
+
+.main {
+    display: flex;
+    min-height: 100vh; /* ビューポート全体の高さを確保 */
+    background-color: #f4f4f4; /* 背景色を設定 */
+    padding: 20px;
+    box-sizing: border-box; /* パディングを含めたサイズ指定 */
+}
+
+.container_wrapper {
+    display: flex;
+    justify-content: center; /* 中央に配置 */
+    flex: 1;
+    margin-right: 320px; /* サイドバーの幅を考慮してマージンを設定 */
+}
+
+.container {
+    width: 100%;
+    max-width: 800px; /* 最大幅を設定 */
+    background-color: #ffffff; /* 背景色を設定 */
+    padding: 20px;
+    border-radius: 8px; /* 角を丸くする */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+}
+
+.text01 {
+    font-size: 24px; /* フォントサイズを設定 */
+    font-weight: bold; /* 太字にする */
+    margin-bottom: 20px; /* 下のマージンを追加 */
+    text-align: center; /* テキストを中央に配置 */
+    color: #333; /* テキストの色を設定 */
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* フォーム要素の間にスペースを追加 */
+}
+
+.input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px; /* 角を丸くする */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* 内側の影を追加 */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* トランジションを追加 */
+}
+
+.input:focus {
+    border-color: #007bff; /* フォーカス時のボーダー色 */
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* フォーカス時の影 */
+    outline: none; /* デフォルトのフォーカスアウトラインを削除 */
+}
+
+.button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff; /* ボタンの背景色を設定 */
+    border: none;
+    border-radius: 4px; /* 角を丸くする */
+    cursor: pointer; /* カーソルをポインタにする */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* トランジションを追加 */
+}
+
+.button:hover {
+    background-color: #0056b3; /* ホバー時の背景色 */
+    transform: translateY(-2px); /* ホバー時の少しの上昇 */
+}
+
+.button:active {
+    background-color: #004494; /* クリック時の背景色 */
+    transform: translateY(0); /* クリック時のリセット */
+}
+
+.tagsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-top: 0.5em;
+}
+
+.tag {
+    background-color: #e0e0e0;
+    border-radius: 0.5em;
+    padding: 0.2em 0.5em;
+    font-size: 0.9em;
+}
+
+.input {
+    margin-bottom: 0.5em;
+}
+
+.button {
+    margin-top: 0.5em;
+}

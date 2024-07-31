@@ -1,83 +1,91 @@
-/* Blogindex.module.css */
-
-/* コンテナ全体のスタイル */
 .container {
-    display: flex;
-    flex-direction: row;
-    min-height: 100vh;
-  }
-  
-  /* メインコンテンツのスタイル */
-  .mainContent {
-    flex: 3;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-  
-  /* サイドバーのスタイル */
-  .sidebar {
-    flex: 1;
-    padding: 20px;
-    background-color: #e0e0e0;
-  }
-  
-  /* 投稿記事のリストのスタイル */
-  .articleList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* 各投稿記事のスタイル */
-  .article {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #fff;
-  }
-  
-  /* 記事のコンテンツのスタイル */
-  .articleContent {
-    margin-bottom: 10px;
-  }
-  
-  /* 記事のタイトルのスタイル */
-  .articleContent h2 {
-    margin: 0;
-    font-size: 1.5em;
-    color: #333;
-  }
-  
-  /* 記事の内容のスタイル */
-  .articleContent p {
-    margin: 10px 0;
-    line-height: 1.6;
-  }
-  
-  /* 投稿日時のスタイル */
-  .articleContent small {
-    color: #666;
-  }
-  
-  /* 投稿者のスタイル */
-  .articleUser {
-    font-style: italic;
-  }
-  
-  /* 読み込み中のメッセージのスタイル */
-  .loading {
-    text-align: center;
-    font-size: 1.2em;
-    color: #555;
-  }
-  
-  /* エラーのメッセージのスタイル */
-  .error {
-    text-align: center;
-    font-size: 1.2em;
-    color: red;
-  }
-  
+  display: flex;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100vh;
+  background-color: #f4f4f4; 
+}
 
-  
+.mainContent {
+  flex: 1;
+  margin-right: 320px;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.post {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* 投稿間のスペース */
+}
+
+.postItem {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex; /* フレックスボックスでレイアウト */
+  align-items: flex-start; /* コンテンツを上部に揃える */
+  gap: 15px; /* テキストと画像の間にスペースを追加 */
+}
+
+.postTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.postContent {
+  flex: 1; /* テキストが画像の左側に広がるようにする */
+  font-size: 16px;
+  margin-bottom: 10px;
+  word-wrap: break-word; /* テキストが長い場合に自動的に改行 */
+}
+
+.postDate {
+  font-size: 14px;
+  color: #777;
+}
+
+.postImage {
+  flex-shrink: 0; /* 画像のサイズを固定 */
+  max-width: 150px; /* 画像のサイズ調整 */
+  height: auto;
+  border-radius: 8px; /* 画像の角を丸める */
+  margin-left: auto; /* 画像を右側に寄せる */
+}
+
+.postLink {
+  display: block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.postLink:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #f44336;
+  font-size: 16px;
+  text-align: center;
+}
+
+.mapContainer {
+  margin-top: 20px; /* マップの上部スペース */
+}
+
+.mapContainer iframe {
+  width: 100%; /* フレックスボックスでの幅調整 */
+  height: 450px; /* 高さの調整 */
+  border: 0;
+  border-radius: 8px; /* 角を丸める */
+}

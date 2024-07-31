@@ -88,7 +88,7 @@ const Sidebar: React.FC = () => {
       </div>
 
       {/* 投稿作成を表示 */}
-      <div className={`${styles.favorite} ${activePath === '/create-article' ? styles.active : ''}`} onClick={() => router.push('/create-article')}>
+      <div className={`${styles.favorite} ${activePath === '/CreateArticle' ? styles.active : ''}`} onClick={() => router.push('/CreateArticle')}>
         <IoAddCircleSharp className={styles.favoriteIcon}/>
         <h2 className={styles.text}>Create article</h2>
       </div>

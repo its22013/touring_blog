@@ -6,7 +6,6 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './MapComponent.module.css'; // CSSモジュールのインポート
 
-const NOMINATIM_SEARCH_URL = 'https://nominatim.openstreetmap.org/search';
 const NOMINATIM_REVERSE_URL = 'https://nominatim.openstreetmap.org/reverse';
 
 const customIcon = new L.Icon({
@@ -19,9 +18,10 @@ const customIcon = new L.Icon({
 interface MapComponentProps {
     location: { lat: number; lng: number };
     setLocation: React.Dispatch<React.SetStateAction<{ lat: number; lng: number }>>;
+    setAddress: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const LocationMarker = ({ setLocation, setAddress }: { setLocation: React.Dispatch<React.SetStateAction<{ lat: number; lng: number }>>, setAddress: React.Dispatch<React.SetStateAction<string>> }) => {
+const LocationMarker: React.FC<{ setLocation: React.Dispatch<React.SetStateAction<{ lat: number; lng: number }>>, setAddress: React.Dispatch<React.SetStateAction<string>> }> = ({ setLocation, setAddress }) => {
     const map = useMap();
 
     useMapEvents({
@@ -50,7 +50,7 @@ const LocationMarker = ({ setLocation, setAddress }: { setLocation: React.Dispat
     return null;
 };
 
-const MapUpdater: React.FC<{ location: { lat: number; lng: number }, address: string }> = ({ location, address }) => {
+const MapUpdater: React.FC<{ location: { lat: number; lng: number } }> = ({ location }) => {
     const map = useMap();
 
     useEffect(() => {
@@ -62,50 +62,38 @@ const MapUpdater: React.FC<{ location: { lat: number; lng: number }, address: st
     return (
         <Marker position={location} icon={customIcon}>
             <Popup>
-                {address || '現在の位置'}
+                {'現在の位置'}
             </Popup>
         </Marker>
     );
 };
 
-const MapComponent: React.FC<MapComponentProps> = ({ location, setLocation }) => {
-    const [searchAddress, setSearchAddress] = useState('');
-    const [address, setAddress] = useState('');
-    const [error, setError] = useState<string | null>(null);
+const MapComponent: React.FC<MapComponentProps> = ({ location, setLocation, setAddress }) => {
+    const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number } | null>(null);
 
-    const handleSearch = async () => {
-        if (!searchAddress.trim()) {
-            alert("検索する住所を入力してください")
-
-            return;
-        }
-
-        setError(null); // エラーをリセット
-
-        try {
-            const response = await fetch(`${NOMINATIM_SEARCH_URL}?q=${encodeURIComponent(searchAddress)}&format=json`);
-            const data = await response.json();
-
-            if (data.length > 0) {
-                const { lat, lon, display_name } = data[0];
-                const newLatLng = { lat: parseFloat(lat), lng: parseFloat(lon) };
-                setLocation(newLatLng);
-                setAddress(display_name);
-            } else {
-                setError('住所が見つかりませんでした');
-                setAddress(''); // 結果が見つからなかった場合、アドレスもリセット
+    useEffect(() => {
+        // 現在地を取得する
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                setCurrentLocation({ lat: latitude, lng: longitude });
+                setLocation({ lat: latitude, lng: longitude });
+            },
+            (error) => {
+                console.error('現在地取得エラー:', error);
+                // 現在地取得に失敗した場合の処理
             }
-        } catch (error) {
-            console.error('住所検索エラー:', error);
-            setError('住所検索中にエラーが発生しました');
-            setAddress(''); // エラー発生時もアドレスをリセット
-        }
-    };
+        );
+    }, [setLocation]);
+
+    if (!currentLocation) {
+        return <div>現在地を取得しています...</div>;
+    }
 
     return (
         <div className={styles.container}>
             <MapContainer 
-                center={location} 
+                center={currentLocation} 
                 zoom={13} 
                 style={{ height: "400px", width: "100%" }}
                 className={styles.map}
@@ -125,23 +113,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ location, setLocation }) =>
                     </LayersControl.BaseLayer>
                 </LayersControl>
                 <LocationMarker setLocation={setLocation} setAddress={setAddress} />
-                <MapUpdater location={location} address={address} />
+                <MapUpdater location={currentLocation} />
             </MapContainer>
-            <div className={styles.searchContainer}>
-                <input
-                    type="text"
-                    value={searchAddress}
-                    onChange={(e) => setSearchAddress(e.target.value)}
-                    placeholder="住所を検索"
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                            handleSearch();
-                        }
-                    }}
-                    className={styles.searchInput}
-                />
-                <button onClick={handleSearch} className={styles.searchButton}>検索</button>
-            </div>
         </div>
     );
 };

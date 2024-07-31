@@ -1,10 +1,9 @@
-"use client";
-
+// ArticleForm.tsx
 import React, { useState, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../hooks/firebaseConfig";
 import ImageUploader from "./ImageUploader";
-import MapComponent from "../CreateArticle/MapComponent";
+import MapComponent from "./MapComponent"; // パスを修正
 import style from "../styles/CreateArticle.module.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -18,7 +17,7 @@ const ArticleForm: React.FC = () => {
     const [tags, setTags] = useState<string[]>([]);
     const [user, setUser] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
-    const [mapError, setMapError] = useState<string | null>(null); // マップエラー用の状態
+    const [mapError, setMapError] = useState<string | null>(null);
     const [newTag, setNewTag] = useState('');
 
     useEffect(() => {
@@ -48,8 +47,11 @@ const ArticleForm: React.FC = () => {
             return;
         }
         if (!title || !content) {
-            
-            alert("タイトルと内容を入力してください")
+            setError("タイトルと内容を入力してください");
+            return;
+        }
+        if (!location.lat || !location.lng) {
+            setError("マップで位置情報を設定してください");
             return;
         }
 
@@ -77,9 +79,9 @@ const ArticleForm: React.FC = () => {
             setImage(null);
             setLocation({ lat: 35.6895, lng: 139.6917 });
             setImageUrl(null);
-            setTags([]); // Clear tags after submission
+            setTags([]);
             setError(null);
-            setMapError(null); // マップエラーもリセット
+            setMapError(null);
             alert('投稿しました！');
         } catch (error) {
             console.error("データベースに保存する際にエラーが発生しました:", error);
@@ -137,10 +139,8 @@ const ArticleForm: React.FC = () => {
                                 className={style.input}
                             />
                             <ImageUploader image={image} setImageUrl={setImageUrl} />
-                            <MapComponent location={location} setLocation={setLocation}/>
-                            
+                            <MapComponent location={location} setLocation={setLocation} setAddress={() => {}} />
                             <button type='submit' className={style.button}>投稿</button>
-                            
                         </form>
                     ) : (
                         <p className={style.error}>ログインしていないため、投稿できません。</p>

@@ -21,55 +21,46 @@ interface MapComponentProps {
     setAddress: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const LocationMarker: React.FC<{ setLocation: React.Dispatch<React.SetStateAction<{ lat: number; lng: number }>>, setAddress: React.Dispatch<React.SetStateAction<string>> }> = ({ setLocation, setAddress }) => {
+interface Location {
+    lat: number;
+    lng: number;
+    address?: string;
+}
+
+const LocationMarker: React.FC<{ marker: Location | null, setMarker: React.Dispatch<React.SetStateAction<Location | null>> }> = ({ marker, setMarker }) => {
     const map = useMap();
 
     useMapEvents({
         click(e) {
             const { lat, lng } = e.latlng;
-            setLocation({ lat, lng });
 
             fetch(`${NOMINATIM_REVERSE_URL}?lat=${lat}&lon=${lng}&format=json`)
                 .then(response => response.json())
                 .then(data => {
+                    let address = '住所が見つかりませんでした';
                     if (data.address) {
-                        const address = `${data.address.road || ''} ${data.address.city || ''} ${data.address.country || ''}`;
-                        setAddress(address);
-                    } else {
-                        setAddress('住所が見つかりませんでした');
+                        address = `${data.address.road || ''} ${data.address.city || ''} ${data.address.country || ''}`;
                     }
+
+                    // Update the single marker's location and address
+                    setMarker({ lat, lng, address });
+
+                    map.setView([lat, lng], map.getZoom() + 2);
                 })
                 .catch(error => {
                     console.error('住所検索エラー:', error);
-                    setAddress('住所検索エラー');
+                    // Update the marker with an error message
+                    setMarker({ lat, lng, address: '住所検索エラー' });
                 });
-
-            map.setView([lat, lng], map.getZoom() + 2);
         }
     });
+
     return null;
-};
-
-const MapUpdater: React.FC<{ location: { lat: number; lng: number } }> = ({ location }) => {
-    const map = useMap();
-
-    useEffect(() => {
-        if (map) {
-            map.setView([location.lat, location.lng], map.getZoom());
-        }
-    }, [location, map]);
-
-    return (
-        <Marker position={location} icon={customIcon}>
-            <Popup>
-                {'現在の位置'}
-            </Popup>
-        </Marker>
-    );
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({ location, setLocation, setAddress }) => {
     const [currentLocation, setCurrentLocation] = useState<{ lat: number; lng: number } | null>(null);
+    const [marker, setMarker] = useState<Location | null>(null);
 
     useEffect(() => {
         // 現在地を取得する
@@ -85,6 +76,12 @@ const MapComponent: React.FC<MapComponentProps> = ({ location, setLocation, setA
             }
         );
     }, [setLocation]);
+
+    useEffect(() => {
+        if (currentLocation) {
+            setMarker({ ...currentLocation, address: '現在地' });
+        }
+    }, [currentLocation]);
 
     if (!currentLocation) {
         return <div>現在地を取得しています...</div>;
@@ -112,8 +109,14 @@ const MapComponent: React.FC<MapComponentProps> = ({ location, setLocation, setA
                         />
                     </LayersControl.BaseLayer>
                 </LayersControl>
-                <LocationMarker setLocation={setLocation} setAddress={setAddress} />
-                <MapUpdater location={currentLocation} />
+                <LocationMarker marker={marker} setMarker={setMarker} />
+                {marker && (
+                    <Marker position={{ lat: marker.lat, lng: marker.lng }} icon={customIcon}>
+                        <Popup>
+                            {marker.address || '現在の位置'}
+                        </Popup>
+                    </Marker>
+                )}
             </MapContainer>
         </div>
     );

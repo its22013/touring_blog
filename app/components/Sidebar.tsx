@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import styles from '../styles/Sidebar.module.css';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { MdNotifications } from 'react-icons/md'; 
+import { FaHotel } from "react-icons/fa6";
 import { GiCharm } from "react-icons/gi";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
@@ -97,7 +97,7 @@ const Sidebar: React.FC = () => {
 
       {/* 道のりから宿泊施設の検索を表示 */}
       <div className={`${styles.favorite} ${activePath === '/notifications' ? styles.active : ''}`} onClick={() => router.push('/notifications')}>
-        <MdNotifications className={styles.favoriteIcon} />
+        <FaHotel className={styles.favoriteIcon} />
         <span><h2 className={styles.text}>Search Hotel</h2></span>
       </div>
 

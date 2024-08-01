@@ -4,10 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, LayersControl, useMap, useMapEvents } from 'react-leaflet';
 import L from 'leaflet'; 
 import 'leaflet/dist/leaflet.css';
-import styles from './MapComponent.module.css'; // CSSモジュールのインポート
+import styles from './MapComponent.module.css'; 
 
 const NOMINATIM_REVERSE_URL = 'https://nominatim.openstreetmap.org/reverse';
 
+// カスタムアイコンの設定
 const customIcon = new L.Icon({
     iconUrl: '/images/marker-shadow.png', 
     iconSize: [80, 50],
@@ -27,6 +28,7 @@ interface Location {
     address?: string;
 }
 
+// マーカーの位置を管理し、地図クリックで位置を更新するコンポーネント
 const LocationMarker: React.FC<{ marker: Location | null, setMarker: React.Dispatch<React.SetStateAction<Location | null>> }> = ({ marker, setMarker }) => {
     const map = useMap();
 
@@ -34,6 +36,7 @@ const LocationMarker: React.FC<{ marker: Location | null, setMarker: React.Dispa
         click(e) {
             const { lat, lng } = e.latlng;
 
+            // クリックした位置の住所を逆ジオコーディングで取得
             fetch(`${NOMINATIM_REVERSE_URL}?lat=${lat}&lon=${lng}&format=json`)
                 .then(response => response.json())
                 .then(data => {
@@ -42,14 +45,14 @@ const LocationMarker: React.FC<{ marker: Location | null, setMarker: React.Dispa
                         address = `${data.address.road || ''} ${data.address.city || ''} ${data.address.country || ''}`;
                     }
 
-                    // Update the single marker's location and address
+                    // マーカーの位置と住所を更新
                     setMarker({ lat, lng, address });
 
-                    map.setView([lat, lng], map.getZoom() + 2);
+                    map.setView([lat, lng], map.getZoom() + 1);
                 })
                 .catch(error => {
                     console.error('住所検索エラー:', error);
-                    // Update the marker with an error message
+                    // エラーが発生した場合のマーカーの住所を更新
                     setMarker({ lat, lng, address: '住所検索エラー' });
                 });
         }

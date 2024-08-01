@@ -74,7 +74,9 @@ const Sidebar: React.FC = () => {
       <div className={styles.currentDateTime}>{currentDateTime}</div>
       
       {userPhotoURL && <img src={userPhotoURL} alt="ユーザーアイコン" className={styles.userIcon} />}
+      <div onClick={() => router.push('/MyProfile')}>
       <h1 className={styles.name}>{userName}</h1>
+      </div>
 
       {/* ホームを表示 */}
       <div className={`${styles.favorite} ${activePath === '/BlogIndex' ? styles.active : ''}`} onClick={() => router.push('/BlogIndex')}>
@@ -93,11 +95,12 @@ const Sidebar: React.FC = () => {
         <h2 className={styles.text}>Create article</h2>
       </div>
 
-      {/* 通知を表示 */}
+      {/* 道のりから宿泊施設の検索を表示 */}
       <div className={`${styles.favorite} ${activePath === '/notifications' ? styles.active : ''}`} onClick={() => router.push('/notifications')}>
         <MdNotifications className={styles.favoriteIcon} />
-        <span><h2 className={styles.text}>Notification</h2></span>
+        <span><h2 className={styles.text}>Search Hotel</h2></span>
       </div>
+
 
       {/* 検索フォーム */}
     

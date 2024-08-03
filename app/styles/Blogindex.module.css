@@ -1,10 +1,12 @@
 .container {
   display: flex;
+  flex-direction: row; /* 横並びにする */
   padding: 20px;
   box-sizing: border-box;
-  width: 100%;
+  width: calc(100% - 320px); /* Sidebar の幅を引いた幅に設定 */
   height: 100vh;
   background-color: #f4f4f4; 
+  overflow-y: auto; /* スクロールを追加 */
 }
 
 .mainContent {
@@ -30,7 +32,7 @@
   background-color: #ffffff;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(70, 70, 70, 0.1);
   display: flex; /* フレックスボックスでレイアウト */
   align-items: flex-start; /* コンテンツを上部に揃える */
   gap: 15px; /* テキストと画像の間にスペースを追加 */
@@ -88,4 +90,23 @@
   height: 450px; /* 高さの調整 */
   border: 0;
   border-radius: 8px; /* 角を丸める */
+}
+
+/* 関連URL */
+.url {
+  background-color: #007bff;
+  padding: 5px 10px;
+}
+
+/* 投稿の日付 */
+.date {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 34px;
+  color: #555;
 }

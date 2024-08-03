@@ -74,7 +74,7 @@ const Sidebar: React.FC = () => {
       <div className={styles.currentDateTime}>{currentDateTime}</div>
       
       {userPhotoURL && <img src={userPhotoURL} alt="ユーザーアイコン" className={styles.userIcon} />}
-      <div onClick={() => router.push('/MyProfile')}>
+      <div onClick={() => router.push('/MyArticle')}>
       <h1 className={styles.name}>{userName}</h1>
       </div>
 
@@ -100,11 +100,7 @@ const Sidebar: React.FC = () => {
         <FaHotel className={styles.favoriteIcon} />
         <span><h2 className={styles.text}>Search Hotel</h2></span>
       </div>
-
-
-      {/* 検索フォーム */}
     
-
       {/* ログアウトボタン */}
       <button onClick={handleLogout} className={styles.logoutButton}>ログアウト</button>
     </aside>

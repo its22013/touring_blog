@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../hooks/firebaseConfig";
 import ImageUploader from "./ImageUploader";
-import MapComponent from "./MapComponent"; // パスを修正
+import MapComponent from "./MapComponent";
 import style from "../styles/CreateArticle.module.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 

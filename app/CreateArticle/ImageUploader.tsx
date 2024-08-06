@@ -8,20 +8,24 @@ interface ImageUploaderProps {
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({ image, setImageUrl }) => {
-  const uploadImage = async (file: File) => {
+  const uploadImage = async (file: File): Promise<string | null> => {
     const storageRef = ref(storage, `images/${file.name}`);
     try {
       await uploadBytes(storageRef, file);
-      return await getDownloadURL(storageRef);
+      const url = await getDownloadURL(storageRef);
+      return url;
     } catch (error) {
       console.error('画像のアップロード中にエラーが発生しました:', error);
       return null;
     }
   };
 
-  const fetchAndUploadImageFromUrl = async (url: string) => {
+  const fetchAndUploadImageFromUrl = async (url: string): Promise<string | null> => {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { mode: 'cors' });
+      if (!response.ok) {
+        throw new Error(`HTTPエラー: ${response.status} ${response.statusText}`);
+      }
       const blob = await response.blob();
       const file = new File([blob], 'remote-image', { type: blob.type });
       return await uploadImage(file);

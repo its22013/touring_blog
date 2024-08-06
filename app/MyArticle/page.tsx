@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import styles from '../styles/MyArticle.module.css';
 import { db } from '../hooks/firebaseConfig';
-import { collection, query, getDocs, doc, deleteDoc, orderBy } from 'firebase/firestore';
+import { collection, query, getDocs, doc, deleteDoc, orderBy, where, getDoc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { MdDelete } from "react-icons/md";
@@ -37,7 +37,6 @@ const MyProfile: React.FC = () => {
                 try {
                     const userId = user.uid;
                     const articlesCollection = collection(db, `users/${userId}/articles`);
-                    // Order by 'created_at' in descending order
                     const q = query(articlesCollection, orderBy('created_at', 'desc'));
                     const querySnapshot = await getDocs(q);
 
@@ -57,13 +56,23 @@ const MyProfile: React.FC = () => {
         };
 
         fetchArticles();
-    }, [user]); // userが変更されたときに記事を取得する
+    }, [user]);
 
     const handleDelete = async (articleId: string) => {
         if (user) {
             try {
-                const articleDoc = doc(db, `users/${user.uid}/articles`, articleId);
-                await deleteDoc(articleDoc);
+                const userId = user.uid;
+                const articleDocRef = doc(db, `users/${userId}/articles`, articleId);
+
+                // 記事を削除する前に created_at を取得
+                const articleSnapshot = await getDoc(articleDocRef);
+                const { created_at } = articleSnapshot.data() || {};
+
+                // 並行して2つのドキュメントを削除
+                await Promise.all([
+                    deleteDoc(articleDocRef),
+                    deleteMatchingArticles(created_at) // created_at が一致する記事を削除
+                ]);
 
                 // 削除後に記事を再取得
                 const updatedArticles = articles.filter(article => article.id !== articleId);
@@ -75,6 +84,17 @@ const MyProfile: React.FC = () => {
         }
     };
 
+    // created_at が一致する記事を削除する関数
+    const deleteMatchingArticles = async (createdAt: any) => {
+        if (!createdAt) return;
+        const articlesCollection = collection(db, 'articles');
+        const q = query(articlesCollection, where('created_at', '==', createdAt));
+        const querySnapshot = await getDocs(q);
+
+        const deletePromises = querySnapshot.docs.map(doc => deleteDoc(doc.ref));
+        await Promise.all(deletePromises);
+    };
+
     const formatDate = (date: any) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' } as Intl.DateTimeFormatOptions;
         return new Date(date).toLocaleDateString(undefined, options);
@@ -83,7 +103,7 @@ const MyProfile: React.FC = () => {
     return (
         <div>
             <div className={styles.breadcrumbs}>
-            <Breadcrumbs currentPage="投稿した記事" />
+                <Breadcrumbs currentPage="投稿した記事" />
             </div>
             <div className={styles.container}>
                 <h1 className={styles.title}>投稿した記事</h1>

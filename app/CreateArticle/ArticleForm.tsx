@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, addDoc, doc, getDoc, updateDoc, increment, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../hooks/firebaseConfig";
 import ImageUploader from "./ImageUploader";
 import MapComponent from "./MapComponent";
@@ -10,14 +10,15 @@ const ArticleForm: React.FC = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [url, setUrl] = useState("");
-    const [image, setImage] = useState<File | null>(null);
+    const [image, setImage] = useState<File | string | null>(null); // Update type to accept string
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [location, setLocation] = useState<{ lat: number; lng: number }>({ lat: 35.6895, lng: 139.6917 });
     const [tags, setTags] = useState<string[]>([]);
     const [user, setUser] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
+    const [mapError, setMapError] = useState<string | null>(null);
     const [newTag, setNewTag] = useState('');
-    const [imageUrlInput, setImageUrlInput] = useState<string>("");
+    const [imageUrlInput, setImageUrlInput] = useState<string>(''); // For image URL input
 
     useEffect(() => {
         const auth = getAuth();
@@ -39,25 +40,6 @@ const ArticleForm: React.FC = () => {
         }
     };
 
-    const getNextCounterValue = async () => {
-        try {
-            const counterDocRef = doc(db, "counters", "articles");
-            const counterDoc = await getDoc(counterDocRef);
-
-            if (counterDoc.exists()) {
-                const currentCount = counterDoc.data()?.count || 0;
-                await updateDoc(counterDocRef, { count: increment(1) });
-                return currentCount + 1;
-            } else {
-                await setDoc(counterDocRef, { count: 1 });
-                return 1;
-            }
-        } catch (error) {
-            console.error("カウンターの取得または更新中にエラーが発生しました:", error);
-            return null;
-        }
-    };
-
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!user) {
@@ -74,21 +56,15 @@ const ArticleForm: React.FC = () => {
         }
 
         const userId = user.uid;
-        const createdAt = await getNextCounterValue();
-        if (createdAt === null) {
-            setError("記事の作成中にエラーが発生しました。");
-            return;
-        }
-
         try {
             const articleData = {
                 title,
                 content,
-                created_at: createdAt,
+                created_at: new Date().getTime(),
                 user: { uid: userId },
                 url,
                 location,
-                image: imageUrl || imageUrlInput,
+                image: imageUrl,
                 tags 
             };
 
@@ -101,21 +77,16 @@ const ArticleForm: React.FC = () => {
             setContent('');
             setUrl('');
             setImage(null);
-            setImageUrl(null);
             setLocation({ lat: 35.6895, lng: 139.6917 });
+            setImageUrl(null);
             setTags([]);
-            setImageUrlInput('');
             setError(null);
+            setMapError(null);
+            setImageUrlInput('');
             alert('投稿しました！');
         } catch (error) {
             console.error("データベースに保存する際にエラーが発生しました:", error);
             setError("投稿の保存中にエラーが発生しました。");
-        }
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-        if (e.key === 'Enter') {
-            e.preventDefault(); 
         }
     };
 
@@ -125,7 +96,7 @@ const ArticleForm: React.FC = () => {
                 <div className={style.container}>
                     <h1 className={style.text01}>投稿フォーム</h1>
                     {user ? (
-                        <form onSubmit={onSubmit} className={style.form} onKeyDown={handleKeyDown}>
+                        <form onSubmit={onSubmit} className={style.form}>
                             <input
                                 type="text"
                                 value={title}
@@ -133,8 +104,7 @@ const ArticleForm: React.FC = () => {
                                 onChange={(e) => setTitle(e.target.value)}
                                 className={style.input}
                             />
-                            <input
-                                type="text"
+                            <textarea
                                 value={content}
                                 placeholder='内容'
                                 onChange={(e) => setContent(e.target.value)}
@@ -175,7 +145,7 @@ const ArticleForm: React.FC = () => {
                                 onChange={(e) => e.target.files && setImage(e.target.files[0])}
                                 className={style.input}
                             />
-                            <ImageUploader image={image} imageUrl={imageUrlInput} setImageUrl={setImageUrl} />
+                            <ImageUploader image={imageUrlInput ? imageUrlInput : image} setImageUrl={setImageUrl} />
                             <MapComponent location={location} setLocation={setLocation} setAddress={() => {}} />
                             <button type='submit' className={style.button}>投稿</button>
                         </form>

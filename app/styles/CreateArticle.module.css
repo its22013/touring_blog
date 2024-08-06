@@ -4,8 +4,13 @@
     display: flex;
     min-height: 100vh; /* ビューポート全体の高さを確保 */
     background-color: #f4f4f4; /* 背景色を設定 */
-    padding: 20px;
     box-sizing: border-box; /* パディングを含めたサイズ指定 */
+    flex-direction: column;
+    /* margin-right: 320px; */
+}
+
+.article {
+    margin-right: 320px;
 }
 
 .container_wrapper {
@@ -22,6 +27,10 @@
     padding: 20px;
     border-radius: 8px; /* 角を丸くする */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 30px;
 }
 
 .text01 {

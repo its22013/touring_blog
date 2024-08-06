@@ -5,6 +5,7 @@ import ImageUploader from "./ImageUploader";
 import MapComponent from "./MapComponent";
 import style from "../styles/CreateArticle.module.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const ArticleForm: React.FC = () => {
     const [title, setTitle] = useState("");
@@ -92,6 +93,9 @@ const ArticleForm: React.FC = () => {
 
     return (
         <main className={style.main}>
+        <div className={style.article}>
+        <Breadcrumbs currentPage="投稿フォーム" />
+        </div>
             <div className={style.container_wrapper}>
                 <div className={style.container}>
                     <h1 className={style.text01}>投稿フォーム</h1>
@@ -104,7 +108,8 @@ const ArticleForm: React.FC = () => {
                                 onChange={(e) => setTitle(e.target.value)}
                                 className={style.input}
                             />
-                            <textarea
+                            <input
+                                type="text"
                                 value={content}
                                 placeholder='内容'
                                 onChange={(e) => setContent(e.target.value)}

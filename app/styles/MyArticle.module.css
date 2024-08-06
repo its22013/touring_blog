@@ -2,11 +2,15 @@
 .container {
     display: flex;
     flex-direction: column;
-    padding: 20px;
     min-height: 100vh;
     margin-right: 320px; /* サイドバーの幅に合わせて調整 */
     background-color: #f4f4f4;
+    padding: 20px;
     max-width: 100%; /* 幅の最大値を設定 */
+}
+
+.breadcrumbs {
+    margin-right: 320px;
 }
 
 .subcontainer {

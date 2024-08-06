@@ -8,6 +8,7 @@ import { collection, query, getDocs, doc, deleteDoc, orderBy } from 'firebase/fi
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { MdDelete } from "react-icons/md";
+import Breadcrumbs from '../components/Breadcrumbs';
 
 const MyProfile: React.FC = () => {
     const [articles, setArticles] = useState<any[]>([]);
@@ -81,6 +82,9 @@ const MyProfile: React.FC = () => {
 
     return (
         <div>
+            <div className={styles.breadcrumbs}>
+            <Breadcrumbs currentPage="投稿した記事" />
+            </div>
             <div className={styles.container}>
                 <h1 className={styles.title}>投稿した記事</h1>
                 {loading ? (
@@ -92,31 +96,29 @@ const MyProfile: React.FC = () => {
                         <ul className={styles.articleList}>
                             {articles.map((article) => (
                                 <li key={article.id} className={styles.articleItem}>
-
                                     {/* 写真 */}
                                     {article.image && <img src={article.image} alt="Article Image" className={styles.articleImage} />}
 
                                     <div className={styles.subcontainer}>
-                                    {/* タイトル */}
-                                    <h2 className={styles.articleTitle}><a href={``}>{article.title}</a></h2>
+                                        {/* タイトル */}
+                                        <h2 className={styles.articleTitle}><a href={`/articles/${article.id}`}>{article.title}</a></h2>
 
-                                    {/* 投稿日 */}
-                                    <p className={styles.date}>投稿日: {formatDate(article.created_at)}</p>
-                                    
-                                    {/* タグ */}
-                                    <div className={styles.tagsList}>
-                                        {article.tags && article.tags.map((tag: string, index: number) => (
-                                            <span key={index} className={styles.tag}>{tag}</span>
-                                        ))}
-                                    </div>
+                                        {/* 投稿日 */}
+                                        <p className={styles.date}>投稿日: {formatDate(article.created_at)}</p>
+                                        
+                                        {/* タグ */}
+                                        <div className={styles.tagsList}>
+                                            {article.tags && article.tags.map((tag: string, index: number) => (
+                                                <span key={index} className={styles.tag}>{tag}</span>
+                                            ))}
+                                        </div>
 
-                                    {/* 関連URL */}
-                                    {article.url && <a href={article.url} target="_blank" rel="noopener noreferrer" className={styles.url}>関連URL</a>}
-
+                                        {/* 関連URL */}
+                                        {article.url && <a href={article.url} target="_blank" rel="noopener noreferrer" className={styles.url}>関連URL</a>}
                                     </div>
 
                                     {/* 削除アイコン */}
-                                    <div >
+                                    <div>
                                         <MdDelete className={styles.delete_icons} onClick={() => handleDelete(article.id)} />
                                     </div>
                                 </li>

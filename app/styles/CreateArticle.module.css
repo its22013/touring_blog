@@ -1,106 +1,143 @@
-/* CreateArticle.module.css */
-
-.main {
-    display: flex;
-    min-height: 100vh; /* ビューポート全体の高さを確保 */
-    background-color: #f4f4f4; /* 背景色を設定 */
-    box-sizing: border-box; /* パディングを含めたサイズ指定 */
-    flex-direction: column;
-    /* margin-right: 320px; */
-}
-
-.article {
-    margin-right: 320px;
-}
-
-.container_wrapper {
-    display: flex;
-    justify-content: center; /* 中央に配置 */
-    flex: 1;
-    margin-right: 320px; /* サイドバーの幅を考慮してマージンを設定 */
-}
-
 .container {
-    width: 100%;
-    max-width: 800px; /* 最大幅を設定 */
-    background-color: #ffffff; /* 背景色を設定 */
-    padding: 20px;
-    border-radius: 8px; /* 角を丸くする */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影を追加 */
-    margin-top: 30px;
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-bottom: 30px;
-}
-
-.text01 {
-    font-size: 24px; /* フォントサイズを設定 */
-    font-weight: bold; /* 太字にする */
-    margin-bottom: 20px; /* 下のマージンを追加 */
-    text-align: center; /* テキストを中央に配置 */
-    color: #333; /* テキストの色を設定 */
-}
-
-.form {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* フォーム要素の間にスペースを追加 */
+    box-sizing: border-box;
+    min-height: 100vh;
+    margin-right: 320px;
+    background-color: #f4f4f4; 
 }
 
-.input {
+.formContainer {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    margin-left: 12%;
+    margin-right: 12%;
+    margin-bottom: 30px;
+    padding: 20px;
+    flex-direction: column;
+}
+
+.formHeader {
+    font-size: 24px; 
+    font-weight: bold; 
+    margin-bottom: 20px;
+    color: #333; 
+    text-align: center; 
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; 
+    margin-bottom: 20px;
+}
+
+.formField label {
+    font-size: 16px;
+    color: #555; 
+    font-weight: 500;
+}
+
+.inputText,
+.textarea,
+.inputFile {
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ddd;
-    border-radius: 4px; /* 角を丸くする */
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); /* 内側の影を追加 */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* トランジションを追加 */
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; 
 }
 
-.input:focus {
-    border-color: #007bff; /* フォーカス時のボーダー色 */
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5); /* フォーカス時の影 */
-    outline: none; /* デフォルトのフォーカスアウトラインを削除 */
+.textarea {
+    min-height: 150px;
+    resize: vertical; 
+}
+
+.inputText:focus,
+.textarea:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+    outline: none; 
 }
 
 .button {
     padding: 12px 20px;
     font-size: 16px;
     color: #ffffff;
-    background-color: #007bff; /* ボタンの背景色を設定 */
+    background-color: #007bff;
     border: none;
-    border-radius: 4px; /* 角を丸くする */
-    cursor: pointer; /* カーソルをポインタにする */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* トランジションを追加 */
+    border-radius: 4px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    margin: 20px auto; /* ボタンを中央に配置 */
+    display: block;
 }
 
 .button:hover {
-    background-color: #0056b3; /* ホバー時の背景色 */
-    transform: translateY(-2px); /* ホバー時の少しの上昇 */
+    background-color: #0056b3; 
+    transform: translateY(-2px);
 }
 
 .button:active {
-    background-color: #004494; /* クリック時の背景色 */
-    transform: translateY(0); /* クリック時のリセット */
+    background-color: #004494;
+    transform: translateY(0); 
 }
+
+.fileInputWrapper {
+    margin-top: 10px;
+}
+
+.imagePreview {
+    margin-top: 10px;
+    max-width: 100%; /* 最大幅をフォームの幅に合わせる */
+    height: auto; /* 高さを自動調整 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* タグ入力フィールドと追加ボタンを横に並べる */
+.tagInputWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.inputText {
+    flex: 1;
+    margin-right: 10px; /* ボタンとの間にスペースを追加 */
+}
+
+
 
 .tagsList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-    margin-top: 0.5em;
+    margin-top: 10px;
 }
 
-.tag {
-    background-color: #e0e0e0;
-    border-radius: 0.5em;
-    padding: 0.2em 0.5em;
-    font-size: 0.9em;
+.tagItem {
+    display: inline-block;
+    background-color: #edeeee;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border: 2px solid #ccc;
 }
 
-.input {
-    margin-bottom: 0.5em;
+.tagItem:hover {
+    background-color: #c3c3c3;
 }
 
-.button {
-    margin-top: 0.5em;
+.removeTagButton {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
 }

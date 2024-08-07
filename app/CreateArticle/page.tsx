@@ -1,20 +1,22 @@
+// pages/CreateArticle.tsx
 "use client";
 
-import React from "react";
-import AuthCheck from "../CreateArticle/AuthCheck";
-import ArticleForm from "../CreateArticle/ArticleForm";
+import React from 'react';
+import Breadcrumbs from "../components/Breadcrumbs";
 import Sidebar from "../components/Sidebar";
+import CreateArticleForm from './CreateArticleForm'; // Adjust the import according to your project structure
+import style from "../styles/CreateArticle.module.css";
 
 const CreateArticle: React.FC = () => {
-    const [user, setUser] = React.useState<any>(null);
-
-    return (
-        <>
-            <AuthCheck setUser={setUser} />
-            {user && <ArticleForm />}
-            <Sidebar />
-        </>
-    );
+  return (
+    <div className={style.container}>
+      <Sidebar />
+      <div className={style.form}>
+        <Breadcrumbs currentPage='投稿フォーム' />
+        <CreateArticleForm />
+      </div>
+    </div>
+  );
 };
 
 export default CreateArticle;

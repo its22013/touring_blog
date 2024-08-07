@@ -1,35 +1,22 @@
-/* 全体のページコンテナ */
+/* DetailedArticle.module.css */
+
 .pageContainer {
   display: flex;
   flex-direction: column;
-
   min-height: 100vh;
-  background-color: #f4f4f4;
-  max-width: 100%; 
   margin-right: 320px;
+  background-color: #f4f4f4;
+  max-width: 100%;
 }
 
-/* コンテンツエリア */
-.content {
-  position: relative;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
-    width: 75%;
-    margin-left: 13%;
-}
-
-/* タイトルのスタイル */
+/* 投稿のタイトル */
 .title {
+  margin-top: 5px;
   font-size: 30px;
-  margin: 0;
-  margin-bottom: 10px; 
-  font-weight: bold;
-  padding-bottom: 10px; 
   position: relative;
+  margin: 0;
+  margin-bottom: 20px; /* タイトルの下の余白を追加 */
+  font-weight: bold;
 }
 
 /* タイトル下の下線 */
@@ -40,52 +27,69 @@
   background-color: #a6a6a6; 
   position: absolute;
   left: 0;
-  bottom: 0; /* タイトルの下端に合わせる */
-  width: 100%; /* タイトル幅に合わせる */
+  bottom: -10px; 
+  width: 100%;
 }
 
-/* 記事画像のスタイル */
-.image {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
+.content {
+  max-width: 800px;
+  overflow: hidden;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
   border-radius: 8px;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
-/* タグのスタイル */
+.loading, .error {
+  text-align: center;
+  color: #666;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.image {
+  max-width: 90%;
+  margin-left: 24px;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 15px;
+  margin-bottom: 1rem;
+}
+
+.input {
+  white-space: pre-wrap; /* 長いテキストを折り返す */
+  overflow-wrap: break-word; /* 長い単語が折り返されるようにする */
+  margin-bottom: 1rem;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
 .tags {
-  margin-top: 20px;
+  margin-top: 1rem;
 }
 
 .tag {
   display: inline-block;
-  background-color: #0070f3;
-  color: white;
+  background-color: #e0e0e0;
   padding: 5px 10px;
-  border-radius: 12px;
+  border-radius: 4px;
+  margin-right: 5px;
   font-size: 0.875rem;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-/* リンクのスタイル */
-.url {
-  margin-top: 20px;
+  
 }
 
 .url a {
   color: #0070f3;
   text-decoration: none;
-  font-weight: bold;
 }
 
 .url a:hover {
   text-decoration: underline;
-}
-
-/* エラーメッセージのスタイル */
-.error {
-  color: red;
-  font-size: 1.125rem;
 }

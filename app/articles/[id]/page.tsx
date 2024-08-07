@@ -2,8 +2,9 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { db } from '@/app/hooks/firebaseConfig';
+import { db, storage } from '@/app/hooks/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
+import { ref, getDownloadURL } from 'firebase/storage';
 import styles from '../../styles/DetailedArticle.module.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Sidebar from '@/app/components/Sidebar';
@@ -15,6 +16,7 @@ const DetailedArticle: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [user, setUser] = useState<any>(null);
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     useEffect(() => {
         const auth = getAuth();
@@ -31,14 +33,20 @@ const DetailedArticle: React.FC = () => {
                 try {
                     let docRef = doc(db, `articles/${id}`);
                     let docSnap = await getDoc(docRef);
-
+        
                     if (!docSnap.exists() && user) {
                         docRef = doc(db, `users/${user.uid}/articles/${id}`);
                         docSnap = await getDoc(docRef);
                     }
-
+        
                     if (docSnap.exists()) {
-                        setArticle(docSnap.data());
+                        const articleData = docSnap.data();
+                        setArticle(articleData);
+        
+                        if (articleData.image) {
+                            // Firestore から取得した画像 URL を表示する
+                            setImageUrl(articleData.image);
+                        }
                     } else {
                         setError("記事が見つかりませんでした。");
                     }
@@ -49,10 +57,16 @@ const DetailedArticle: React.FC = () => {
                     setLoading(false);
                 }
             }
-        };
-
+        };        
         fetchArticle();
     }, [id, user]);
+
+    const formatDate = (timestamp: any) => {
+        if (timestamp && timestamp.toDate) {
+            return new Date(timestamp.toDate()).toLocaleDateString();
+        }
+        return '';
+    };
 
     return (
         <div className={styles.pageContainer}>
@@ -63,9 +77,7 @@ const DetailedArticle: React.FC = () => {
                 ) : article ? (
                     <>
                         <h1 className={styles.title}>{article.title}</h1>
-                        {article.image && <img src={article.image} alt="Article Image" className={styles.image} />}
-                        <p>{article.content}</p>
-                        <p>投稿日: {new Date(article.created_at).toLocaleDateString()}</p>
+                        <p>投稿日: {formatDate(article.created_at)}</p>
                         <div className={styles.tags}>
                             {article.tags && article.tags.map((tag: string, index: number) => (
                                 <span key={index} className={styles.tag}>{tag}</span>
@@ -74,6 +86,9 @@ const DetailedArticle: React.FC = () => {
                         <div className={styles.url}>
                             {article.url && <a href={article.url} target="_blank" rel="noopener noreferrer">関連URL</a>}
                         </div>
+                        {imageUrl && <img src={imageUrl} alt="Article Image" className={styles.image} />}
+                        <p className={styles.input}>{article.content}</p>
+                        
                     </>
                 ) : (
                     <p className={styles.error}>{error}</p>

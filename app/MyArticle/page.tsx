@@ -95,9 +95,12 @@ const MyProfile: React.FC = () => {
         await Promise.all(deletePromises);
     };
 
-    const formatDate = (date: any) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' } as Intl.DateTimeFormatOptions;
-        return new Date(date).toLocaleDateString(undefined, options);
+    // 投稿日の表示の処理
+    const formatDate = (timestamp: any) => {
+        if (timestamp && timestamp.toDate) {
+            return new Date(timestamp.toDate()).toLocaleDateString();
+        }
+        return '';
     };
 
     return (

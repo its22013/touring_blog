@@ -4,7 +4,7 @@
 import React from 'react';
 import Breadcrumbs from "../components/Breadcrumbs";
 import Sidebar from "../components/Sidebar";
-import CreateArticleForm from './CreateArticleForm'; // Adjust the import according to your project structure
+import CreateArticleForm from './CreateArticleForm'; 
 import style from "../styles/CreateArticle.module.css";
 
 const CreateArticle: React.FC = () => {

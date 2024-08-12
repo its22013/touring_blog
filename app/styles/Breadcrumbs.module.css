@@ -6,20 +6,41 @@
     padding: 20px;
     border-bottom: 1px solid #bbbbbb;
   }
-  
-.breadcrumbs a {
-color: #0070f3;
-text-decoration: none;
-margin-left: 12%;
-margin-right: 6px;
+
+.home {
+  margin-left: 12%;
 }
 
+.breadcrumbs a {
+    color: #0070f3;
+    text-decoration: none;
+    font-size: 18px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
 .breadcrumbs a:hover {
-text-decoration: underline;
+    text-decoration: underline;
 }
 
 .breadcrumbs span {
-margin-left: 5px;
-margin-right: 5px;
-cursor: pointer;
+    margin: 0 5px; /* 各要素間のスペースを調整 */
+}
+
+.breadcrumbs > span:first-of-type {
+    margin-left: 0; /* 最初のスペースは左側にマージンなし */
+}
+
+.breadcrumbs > span:last-of-type {
+    margin-right: 0; /* 最後のスペースは右側にマージンなし */
+}
+
+.breadcrumbItem {
+    color: #0070f3;
+    text-decoration: none;
+}
+
+.breadcrumbItem:hover {
+    text-decoration: underline;
 }

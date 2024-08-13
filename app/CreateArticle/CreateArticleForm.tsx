@@ -15,7 +15,8 @@ const CreateArticleForm: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [newTag, setNewTag] = useState('');
     const [tags, setTags] = useState<string[]>([]);
-  
+    const [error, setError] = useState<string | null>(null); // エラーメッセージの状態管理
+
     const handleImageUpload = async (file: File) => {
         const auth = getAuth();
         const user = auth.currentUser;
@@ -28,7 +29,7 @@ const CreateArticleForm: React.FC = () => {
                 return url; // 画像 URL を返す
             } catch (error) {
                 console.error('画像のアップロードに失敗しました: ', error);
-                throw error;
+                throw new Error('画像のアップロードに失敗しました');
             }
         } else {
             throw new Error('ユーザーがログインしていません');
@@ -38,6 +39,7 @@ const CreateArticleForm: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setIsSubmitting(true);
+        setError(null); // エラーをリセット
         const auth = getAuth();
         const user = auth.currentUser;
     
@@ -51,12 +53,12 @@ const CreateArticleForm: React.FC = () => {
             
                 // Firestore に保存
                 const articleData = {
-                    title,                      // タイトル
-                    content,                    // 内容
-                    image: uploadedImageUrl,    // 写真
-                    created_at: new Date(),     // 投稿日
-                    userId: user.uid,           // ユーザーの情報
-                    tags                        // タグ
+                    title,
+                    content,
+                    image: uploadedImageUrl,
+                    created_at: new Date(),
+                    userId: user.uid,
+                    tags
                 };
 
                 await addDoc(collection(db, 'articles'), articleData);
@@ -68,12 +70,13 @@ const CreateArticleForm: React.FC = () => {
                 setImage(null);
                 setImageUrl(null);
                 setTags([]);
-                setNewTag(''); 
+                setNewTag('');
             } catch (error) {
                 console.error('記事の投稿に失敗しました: ', error);
+                setError('記事の投稿に失敗しました。再試行してください。'); // エラーメッセージを設定
             }
         } else {
-            alert('ログインが必要です');
+            setError('ログインが必要です');
         }
     
         setIsSubmitting(false);
@@ -95,6 +98,7 @@ const CreateArticleForm: React.FC = () => {
     return (
         <div className={styles.formContainer}>
             <h1 className={styles.formHeader}>投稿フォーム</h1>
+            {error && <div className={styles.errorMessage}>{error}</div>} {/* エラーメッセージの表示 */}
             <form onSubmit={handleSubmit}>
 
                 {/* タイトル */}

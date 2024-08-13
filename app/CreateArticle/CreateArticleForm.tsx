@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from 'react';
 import { getAuth } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
@@ -15,7 +13,7 @@ const CreateArticleForm: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [newTag, setNewTag] = useState('');
     const [tags, setTags] = useState<string[]>([]);
-    const [error, setError] = useState<string | null>(null); // エラーメッセージの状態管理
+    const [error, setError] = useState<string | null>(null);
 
     const handleImageUpload = async (file: File) => {
         const auth = getAuth();
@@ -26,7 +24,7 @@ const CreateArticleForm: React.FC = () => {
                 const storageRef = ref(storage, `users/${user.uid}/images/${file.name}`);
                 await uploadBytes(storageRef, file);
                 const url = await getDownloadURL(storageRef);
-                return url; // 画像 URL を返す
+                return url;
             } catch (error) {
                 console.error('画像のアップロードに失敗しました: ', error);
                 throw new Error('画像のアップロードに失敗しました');
@@ -40,24 +38,24 @@ const CreateArticleForm: React.FC = () => {
         event.preventDefault();
         setIsSubmitting(true);
         setError(null); // エラーをリセット
+    
         const auth = getAuth();
         const user = auth.currentUser;
     
         if (user) {
             try {
-                let uploadedImageUrl = imageUrl; 
+                let uploadedImageUrl = imageUrl;
     
                 if (image) {
                     uploadedImageUrl = await handleImageUpload(image);
                 }
     
-                // Firestore に保存
                 const articleData = {
                     title,
                     content,
                     image: uploadedImageUrl,
                     created_at: new Date(),
-                    userId: user.uid,
+                    userId: user.uid, // userId フィールドを設定
                     tags
                 };
     
@@ -83,17 +81,15 @@ const CreateArticleForm: React.FC = () => {
         }
     
         setIsSubmitting(false);
-    };      
+    };            
 
-    // タグの追加処理
     const handleAddTag = () => {
         if (newTag && !tags.includes(newTag)) {
             setTags([...tags, newTag]);
-            setNewTag(''); // タグ追加後に入力フィールドをリセット
+            setNewTag('');
         }
     };
 
-    // タグの削除処理
     const handleRemoveTag = (tagToRemove: string) => {
         setTags(tags.filter(tag => tag !== tagToRemove));
     };
@@ -101,10 +97,8 @@ const CreateArticleForm: React.FC = () => {
     return (
         <div className={styles.formContainer}>
             <h1 className={styles.formHeader}>投稿フォーム</h1>
-            {error && <div className={styles.errorMessage}>{error}</div>} {/* エラーメッセージの表示 */}
+            {error && <div className={styles.errorMessage}>{error}</div>}
             <form onSubmit={handleSubmit}>
-
-                {/* タイトル */}
                 <div className={styles.formField}>
                     <label htmlFor="title">タイトル:</label>
                     <input
@@ -116,8 +110,6 @@ const CreateArticleForm: React.FC = () => {
                         required
                     />
                 </div>
-
-                {/* 内容 */}
                 <div className={styles.formField}>
                     <label htmlFor="content">内容:</label>
                     <textarea
@@ -128,8 +120,6 @@ const CreateArticleForm: React.FC = () => {
                         required
                     ></textarea>
                 </div>
-
-                {/* 画像 */}
                 <div className={`${styles.formField} ${styles.fileInputWrapper}`}>
                     <label htmlFor="image">画像 (任意):</label>
                     <input
@@ -141,8 +131,6 @@ const CreateArticleForm: React.FC = () => {
                     />
                     {image && <img src={URL.createObjectURL(image)} alt="プレビュー" className={styles.imagePreview} />}
                 </div>
-
-                {/* タグ */}
                 <div className={styles.formField}>
                     <label htmlFor="tags">タグ:</label>
                     <div className={styles.tagInputWrapper}>
@@ -165,13 +153,11 @@ const CreateArticleForm: React.FC = () => {
                         ))}
                     </div>
                 </div>
-
                 <button type="submit" className={styles.button} disabled={isSubmitting}>
                     {isSubmitting ? '投稿中...' : '投稿する'}
                 </button>
             </form>
         </div>
-    );
-};
+    );};
 
 export default CreateArticleForm;

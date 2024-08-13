@@ -50,7 +50,7 @@ const CreateArticleForm: React.FC = () => {
                 if (image) {
                     uploadedImageUrl = await handleImageUpload(image);
                 }
-            
+    
                 // Firestore に保存
                 const articleData = {
                     title,
@@ -60,7 +60,10 @@ const CreateArticleForm: React.FC = () => {
                     userId: user.uid,
                     tags
                 };
-
+    
+                console.log('Sending data:', articleData);
+    
+                // Firestore にデータを追加
                 await addDoc(collection(db, 'articles'), articleData);
                 await addDoc(collection(db, `users/${user.uid}/articles`), articleData);
     
@@ -80,7 +83,7 @@ const CreateArticleForm: React.FC = () => {
         }
     
         setIsSubmitting(false);
-    };    
+    };      
 
     // タグの追加処理
     const handleAddTag = () => {

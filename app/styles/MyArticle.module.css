@@ -1,0 +1,170 @@
+/* 全体の設定 */
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin-right: 320px; /* サイドバーの幅に合わせて調整 */
+    background-color: #f4f4f4;
+    padding: 20px;
+    max-width: 100%; /* 幅の最大値を設定 */
+}
+
+.breadcrumbs {
+    margin-right: 320px;
+}
+
+.subcontainer {
+    margin-left: 20px;
+}
+
+/* 投稿記事の昇順 */
+.sortButton {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sortButton:hover {
+    background-color: #0056b3;
+}
+
+/* 投稿のタイトル */
+.title {
+    font-size: 30px;
+    position: relative;
+    margin: 0;
+    margin-bottom: 20px; /* タイトルの下の余白を追加 */
+    font-weight: bold;
+}
+
+/* タイトル下の下線 */
+.title::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #a6a6a6; 
+    position: absolute;
+    left: 0;
+    bottom: -10px; 
+    width: 100%;
+}
+
+/* 投稿リスト */
+.articleList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 投稿アイテム */
+.articleItem {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+    display: flex;
+    align-items: flex-start;
+    margin-top: 15px;
+    flex-wrap: nowrap
+}
+
+/* 投稿画像 */
+.articleImage {
+    max-width: 30%;
+    height: auto;
+    margin-right: 15px;
+    border-radius: 8px;
+}
+
+/* 投稿タイトル */
+.articleTitle {
+    font-size: 28px;
+    margin: 33 0 10px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 投稿日 */
+.date {
+    position: absolute;
+    top: -3px;
+    right: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* タグリスト */
+.tagsList {
+    margin-top: 46px;
+    margin-bottom: 30px;
+}
+
+/* タグ */
+.tag {
+    display: inline-block;
+    background-color: #f1eaea;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+.tag:hover {
+    background-color: #cacaca;
+    border-color: #999;
+}
+
+/* 関連URL */
+.url {
+    border: 2px solid #42c6ff;
+    background-color: #93defd;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.url:hover {
+    background-color: #42c6ff;
+}
+
+/* 削除アイコン */
+.delete_icons {
+    position: absolute; /* 絶対位置を設定 */
+    bottom: 10px; /* 下からの距離 */
+    right: 10px; /* 右からの距離 */
+    font-size: 34px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.delete_icons:hover {
+    color: #a9a9a9;
+}
+
+/* 投稿がないとき */
+.post_not {
+    font-size: 34px;
+    color: rgb(85, 52, 184);
+    text-align: center;
+}
+
+.post_not01 {
+    font-size: 34px;
+    color: rgb(255, 136, 136);
+    text-align: center;
+    cursor: pointer;
+    padding-top: 10%;
+}
+
+.post_not01:hover {
+    color: rgb(185, 9, 9);
+}

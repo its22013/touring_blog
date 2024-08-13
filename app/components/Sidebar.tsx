@@ -1,11 +1,10 @@
-// components/Sidebar.tsx
 "use client";
 
 import React, { useEffect, useState } from 'react';
 import styles from '../styles/Sidebar.module.css';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { MdNotifications } from 'react-icons/md'; 
+import { FaHotel } from "react-icons/fa6";
 import { GiCharm } from "react-icons/gi";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
@@ -15,25 +14,29 @@ const Sidebar: React.FC = () => {
   const [userName, setUserName] = useState<string>('ユーザー');
   const [userPhotoURL, setUserPhotoURL] = useState<string | null>(null);
   const [currentDateTime, setCurrentDateTime] = useState<string>('');
-  const [activePath] = useState<string>('');
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [activePath, setActivePath] = useState<string>('');
+  const router = useRouter();
 
-  // ログインした後の情報を取得して表示する処理
+  // ログイン状態の取得と更新
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserName(user.displayName || 'ユーザー');
         setUserPhotoURL(user.photoURL);
+        setIsLoggedIn(true);
       } else {
         setUserName('ユーザー');
         setUserPhotoURL(null);
+        setIsLoggedIn(false);
       }
     });
 
     return () => unsubscribe();
   }, []);
 
-  // 現時刻の表示するための処理
+  // 現時刻の表示
   useEffect(() => {
     const updateCurrentDateTime = () => {
       const now = new Date();
@@ -56,8 +59,7 @@ const Sidebar: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // ログアウトの処理
-  const router = useRouter();
+  // ログアウト処理
   const handleLogout = () => {
     signOut(auth).then(() => {
       console.log('User signed out');
@@ -67,6 +69,15 @@ const Sidebar: React.FC = () => {
     });
   };
 
+  // ログインページへの遷移処理
+  const handleLoginRedirect = () => {
+    router.push('/login');
+  };
+
+  // ページのパスを設定
+  useEffect(() => {
+    setActivePath(window.location.pathname);
+  }, [window.location.pathname]);
 
   return (
     <aside className={styles.sidebar}>
@@ -74,7 +85,9 @@ const Sidebar: React.FC = () => {
       <div className={styles.currentDateTime}>{currentDateTime}</div>
       
       {userPhotoURL && <img src={userPhotoURL} alt="ユーザーアイコン" className={styles.userIcon} />}
-      <h1 className={styles.name}>{userName}</h1>
+      <div onClick={() => router.push('/MyArticle')}>
+        <h1 className={styles.name}>{userName}</h1>
+      </div>
 
       {/* ホームを表示 */}
       <div className={`${styles.favorite} ${activePath === '/BlogIndex' ? styles.active : ''}`} onClick={() => router.push('/BlogIndex')}>
@@ -88,22 +101,23 @@ const Sidebar: React.FC = () => {
       </div>
 
       {/* 投稿作成を表示 */}
-      <div className={`${styles.favorite} ${activePath === '/create-article' ? styles.active : ''}`} onClick={() => router.push('/create-article')}>
+      <div className={`${styles.favorite} ${activePath === '/CreateArticle' ? styles.active : ''}`} onClick={() => router.push('/CreateArticle')}>
         <IoAddCircleSharp className={styles.favoriteIcon}/>
         <h2 className={styles.text}>Create article</h2>
       </div>
 
-      {/* 通知を表示 */}
+      {/* 道のりから宿泊施設の検索を表示 */}
       <div className={`${styles.favorite} ${activePath === '/notifications' ? styles.active : ''}`} onClick={() => router.push('/notifications')}>
-        <MdNotifications className={styles.favoriteIcon} />
-        <span><h2 className={styles.text}>Notification</h2></span>
+        <FaHotel className={styles.favoriteIcon} />
+        <span><h2 className={styles.text}>Search Hotel</h2></span>
       </div>
 
-      {/* 検索フォーム */}
-    
-
-      {/* ログアウトボタン */}
-      <button onClick={handleLogout} className={styles.logoutButton}>ログアウト</button>
+      {/* ログインしていない場合はログインボタンを表示 */}
+      {!isLoggedIn ? (
+        <button onClick={handleLoginRedirect} className={styles.loginButton}>ログイン</button>
+      ) : (
+        <button onClick={handleLogout} className={styles.logoutButton}>ログアウト</button>
+      )}
     </aside>
   );
 };

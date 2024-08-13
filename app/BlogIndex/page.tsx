@@ -33,6 +33,12 @@ const Home: React.FC = () => {
                   </article>
               </section>
           </div>
+import Sidebar from '../components/Sidebar';
+
+const Schedule: React.FC = () => {
+  return (
+      <div>
+        <Sidebar />
       </div>
   );
 }

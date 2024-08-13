@@ -40,6 +40,22 @@ const HotelResults: React.FC = () => {
   const startLon = parseFloat(searchParams.get('midpointLon') || '127.6766333');
   const radius = 3.0;
 
+  const RatingStars: React.FC<{ rating: string }> = ({ rating }) => {
+    const starCount = Math.round(parseFloat(rating) || 0);
+    const stars = Array.from({ length: 5 }, (_, index) => 
+      index < starCount ? 'filled' : ''
+    );
+  
+    return (
+      <div className={style['star-rating']}>
+        {stars.map((filled, index) => (
+          <span key={index} className={`${style['star']} ${style[filled]}`}>&#9733;</span>
+        ))}
+      </div>
+    );
+  };
+  
+
   useEffect(() => {
     const fetchHotels = async () => {
       try {
@@ -63,9 +79,12 @@ const HotelResults: React.FC = () => {
         const hotelsArray: Hotel[] = Array.from(hotelNodes).map((node: any) => {
           const hotelInfo = node.getElementsByTagName('hotelBasicInfo')[0];
 
+          const hotelName = hotelInfo.getElementsByTagName('hotelName')[0]?.textContent || '';
+          const processedHotelName = isEnglish(hotelName) ? toHalfWidth(hotelName) : hotelName;
+
           return {
             hotelNo: hotelInfo.getElementsByTagName('hotelNo')[0]?.textContent || '',
-            hotelName: hotelInfo.getElementsByTagName('hotelName')[0]?.textContent || '',
+            hotelName: processedHotelName,
             hotelImageUrl: hotelInfo.getElementsByTagName('hotelImageUrl')[0]?.textContent || '',
             hotelAddress: `${hotelInfo.getElementsByTagName('address1')[0]?.textContent || ''} ${hotelInfo.getElementsByTagName('address2')[0]?.textContent || ''}`,
             hotelMinPrice: hotelInfo.getElementsByTagName('hotelMinCharge')[0]?.textContent || '',
@@ -89,6 +108,16 @@ const HotelResults: React.FC = () => {
         setLoading(false);
       }
     };
+
+    function toHalfWidth(str: string): string {
+      return str.replace(/[！-～]/g, function (s) {
+        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+      }).replace(/　/g, ' ');
+    }
+    
+    function isEnglish(text: string): boolean {
+      return /^[A-Za-z0-9\s]+$/.test(text);
+    }
 
     fetchHotels();
   }, [checkinDate, checkoutDate, startLat, startLon, radius]);
@@ -114,10 +143,15 @@ const HotelResults: React.FC = () => {
                 <div className={style.hotel_info}>
                   <div className={style.hotel_info_top}>
                     <h2>{hotel.hotelName}</h2>
-                  </div>
+                    <h3 className={style.hotelMinPrice}>最低価格: ¥{hotel.hotelMinPrice}</h3>
+                  </div>     
                   <div className={style.hotel_info_bottom}>
-                    <p>最低価格: ¥{hotel.hotelMinPrice}</p>
-                    <p>評価: {hotel.reviewAverage} ({hotel.reviewCount}件のレビュー)</p>
+                      <div className={style.reviewAverage_container}>
+                      <h3 className={style.reviewAverage}>{parseFloat(hotel.reviewAverage).toFixed(1)}</h3> 
+                      <RatingStars rating={hotel.reviewAverage} /> 
+                      </div>
+                      ({hotel.reviewCount}件のレビュー)
+                    
                     <p>特長: {hotel.hotelSpecial}</p>
                     {hotel.roomInfos.length > 0 && (
                       <ul className={style.room_list}>
@@ -143,5 +177,6 @@ const HotelResults: React.FC = () => {
     </div>
   );
 };
+
 
 export default HotelResults;

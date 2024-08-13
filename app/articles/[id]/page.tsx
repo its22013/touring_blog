@@ -2,9 +2,8 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { db, storage } from '@/app/hooks/firebaseConfig';
+import { db } from '@/app/hooks/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import { ref, getDownloadURL } from 'firebase/storage';
 import styles from '../../styles/DetailedArticle.module.css';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Sidebar from '@/app/components/Sidebar';
@@ -44,7 +43,6 @@ const DetailedArticle: React.FC = () => {
                         setArticle(articleData);
         
                         if (articleData.image) {
-                            // Firestore から取得した画像 URL を表示する
                             setImageUrl(articleData.image);
                         }
                     } else {
@@ -57,8 +55,11 @@ const DetailedArticle: React.FC = () => {
                     setLoading(false);
                 }
             }
-        };        
-        fetchArticle();
+        };
+
+        if (typeof window !== 'undefined') {
+            fetchArticle();
+        }
     }, [id, user]);
 
     const formatDate = (timestamp: any) => {
@@ -88,7 +89,6 @@ const DetailedArticle: React.FC = () => {
                         </div>
                         {imageUrl && <img src={imageUrl} alt="Article Image" className={styles.image} />}
                         <p className={styles.input}>{article.content}</p>
-                        
                     </>
                 ) : (
                     <p className={styles.error}>{error}</p>

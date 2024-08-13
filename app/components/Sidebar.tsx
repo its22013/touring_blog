@@ -1,4 +1,3 @@
-// Sidebar.tsx
 "use client";
 
 import React, { useEffect, useState } from 'react';
@@ -16,7 +15,7 @@ const Sidebar: React.FC = () => {
   const [userPhotoURL, setUserPhotoURL] = useState<string | null>(null);
   const [currentDateTime, setCurrentDateTime] = useState<string>('');
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [activePath, setActivePath] = useState<string[]>([]); // 配列に変更
+  const [activePath, setActivePath] = useState<string>('');
   const router = useRouter();
 
   // ログイン状態の取得と更新
@@ -77,8 +76,18 @@ const Sidebar: React.FC = () => {
 
   // ページのパスを設定
   useEffect(() => {
-    setActivePath([window.location.pathname]); // 配列として設定
-  }, [window.location.pathname]);
+    // クライアントサイドでのみ `window.location.pathname` を使用
+    const handleRouteChange = () => {
+      setActivePath(window.location.pathname);
+    };
+
+    handleRouteChange();
+    window.addEventListener('popstate', handleRouteChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, []);
 
   return (
     <aside className={styles.sidebar}>
@@ -91,24 +100,24 @@ const Sidebar: React.FC = () => {
       </div>
 
       {/* ホームを表示 */}
-      <div className={`${styles.favorite} ${activePath.includes('/BlogIndex') ? styles.active : ''}`} onClick={() => router.push('/BlogIndex')}>
+      <div className={`${styles.favorite} ${activePath === '/BlogIndex' ? styles.active : ''}`} onClick={() => router.push('/BlogIndex')}>
         <FaHome className={styles.favoriteIcon} />
         <span><h2 className={styles.text}>Home</h2></span>
       </div>
 
-      <div className={`${styles.favorite} ${activePath.includes('/bookmarks') ? styles.active : ''}`} onClick={() => router.push('/bookmarks')}>
+      <div className={`${styles.favorite} ${activePath === '/bookmarks' ? styles.active : ''}`} onClick={() => router.push('/bookmarks')}>
         <GiCharm className={styles.favoriteIcon} />
         <span><h2 className={styles.text}>Book Mark</h2></span>       
       </div>
     
       {/* 投稿作成を表示 */}
-      <div className={`${styles.favorite} ${activePath.includes('/CreateArticle') ? styles.active : ''}`} onClick={() => router.push('/CreateArticle')}>
+      <div className={`${styles.favorite} ${activePath === '/CreateArticle' ? styles.active : ''}`} onClick={() => router.push('/CreateArticle')}>
         <IoAddCircleSharp className={styles.favoriteIcon}/>
         <h2 className={styles.text}>Create article</h2>
       </div>
 
       {/* 道のりから宿泊施設の検索を表示 */}
-      <div className={`${styles.favorite} ${activePath.some(path => ['/SearchHotel', '/SearchHotel/Results_Hotel'].includes(path)) ? styles.active : ''}`} onClick={() => router.push('/SearchHotel')}>
+      <div className={`${styles.favorite} ${['/SearchHotel', '/SearchHotel/Results_Hotel'].includes(activePath) ? styles.active : ''}`} onClick={() => router.push('/SearchHotel')}>
         <FaHotel className={styles.favoriteIcon} />
         <span><h2 className={styles.text}>Search Hotel</h2></span>
       </div>

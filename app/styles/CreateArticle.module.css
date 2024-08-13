@@ -105,14 +105,13 @@
 .tagInputWrapper {
     display: flex;
     align-items: center;
+    margin-top: -27px;
 }
 
 .inputText {
     flex: 1;
     margin-right: 10px; /* ボタンとの間にスペースを追加 */
 }
-
-
 
 .tagsList {
     margin-top: 10px;

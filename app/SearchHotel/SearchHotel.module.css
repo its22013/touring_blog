@@ -1,0 +1,160 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100vh;
+    margin-right: 320px;
+    background-color: #f4f4f4; 
+}
+
+.searchResults {
+    margin-top: 20px;
+  }
+  
+  .hotelItem {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .error {
+    color: red;
+    font-weight: bold;
+  }
+
+.subcontainer {
+  padding: 20px;
+}
+
+.search_form_conatiner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; 
+  margin-top: 20px; 
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+  /* 検索するフォームの枠 */
+.search_hotel_container {
+  flex: 1 1;
+  max-width: 800px;
+  min-height: 400px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+/* キーワードフォームの設定 */
+.key_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+/* 入力フィールドの設定 */
+.form_01 {
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  width: 300px; 
+  height: 50px;
+  outline-color: rgb(90, 205, 225); 
+  box-sizing: border-box; 
+}
+.options_toggle {
+  font-size: 18px;
+  color: #7e7e7e;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  margin-left: 13px;
+}
+
+.options_toggle:hover {
+  text-decoration: underline;
+}
+
+/* 検索ボタンの設定 */
+.button02 {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100px; 
+  height: 50px; 
+  border-radius: 6px;
+  text-align: center;
+  font-size: 16px; 
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  transition: background-color 0.3s ease; 
+}
+
+.button02:hover {
+  background-color: #0056b3; 
+}
+
+
+/* ホテルを検索のタイトル */
+.title {
+  margin-top: 5px;
+  font-size: 30px;
+  position: relative;
+  margin-bottom: 20px; /* タイトルの下の余白を追加 */
+  font-weight: bold;
+}
+
+/* タイトル下の下線 */
+.title::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: #a6a6a6; 
+  position: absolute;
+  left: 0;
+  bottom: -10px; 
+  width: 100%;
+}
+
+.button {
+  width: 280px;
+  height: 68px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  margin-left: 12%;
+  margin-right: 12%;
+  padding: 10px;
+  border: 1px solid #2f66ff;
+  background-color: #007bff;
+  border-radius: 4px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 24px;
+}
+
+.button_container {
+  display: flex;
+  justify-content: center
+}
+
+.button:hover {
+  background-color: #1167c3;
+}
+
+
+/* ルートマップで検索の中 */
+.text02 {
+  margin-left: 20px;
+  font-size: 24px;
+}

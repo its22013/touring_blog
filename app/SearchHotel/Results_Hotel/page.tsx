@@ -1,6 +1,7 @@
+// app/SearchHotel/Results_Hotel/page.tsx
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import style from './HotelResults.module.css';
 import Sidebar from '@/app/components/Sidebar';
@@ -26,7 +27,7 @@ interface RoomInfo {
   reserveUrl: string;
 }
 
-const HotelResults: React.FC = () => {
+const HotelResultsContent: React.FC = () => {
   const searchParams = useSearchParams();
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -35,7 +36,6 @@ const HotelResults: React.FC = () => {
   const checkinDate = '2024-12-01';
   const checkoutDate = '2024-12-02';
 
-  // Extract coordinates from query parameters
   const startLat = parseFloat(searchParams.get('midpointLat') || '26.1959836');
   const startLon = parseFloat(searchParams.get('midpointLon') || '127.6766333');
   const radius = 3.0;
@@ -54,7 +54,6 @@ const HotelResults: React.FC = () => {
       </div>
     );
   };
-  
 
   useEffect(() => {
     const fetchHotels = async () => {
@@ -178,5 +177,12 @@ const HotelResults: React.FC = () => {
   );
 };
 
+const HotelResultsPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HotelResultsContent />
+    </Suspense>
+  );
+};
 
-export default HotelResults;
+export default HotelResultsPage;

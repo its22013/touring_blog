@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAuth } from 'firebase/auth';
+import { getAuth, User } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { db, storage } from '../hooks/firebaseConfig'; 
 import styles from '../styles/CreateArticle.module.css';
@@ -33,7 +33,7 @@ const CreateArticleForm: React.FC = () => {
             throw new Error('ユーザーがログインしていません');
         }
     };
-    
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setIsSubmitting(true);
@@ -45,22 +45,27 @@ const CreateArticleForm: React.FC = () => {
         if (user) {
             try {
                 let uploadedImageUrl = imageUrl;
-    
+
                 if (image) {
                     uploadedImageUrl = await handleImageUpload(image);
                 }
-    
+
+                const userName = user.displayName || '名前なし'; // ユーザーの名前を取得
+                const userPhotoURL = user.photoURL || ''; // ユーザーの写真 URL を取得
+
                 const articleData = {
                     title,
                     content,
                     image: uploadedImageUrl,
                     created_at: new Date(),
-                    userId: user.uid, // userId フィールドを設定
+                    userId: user.uid,
+                    userName, // ユーザーの名前を追加
+                    userPhotoURL, // ユーザーの写真 URL を追加
                     tags
                 };
-    
+
                 console.log('Sending data:', articleData);
-    
+
                 // Firestore にデータを追加
                 await addDoc(collection(db, 'articles'), articleData);
                 await addDoc(collection(db, `users/${user.uid}/articles`), articleData);
@@ -81,7 +86,7 @@ const CreateArticleForm: React.FC = () => {
         }
     
         setIsSubmitting(false);
-    };            
+    };
 
     const handleAddTag = () => {
         if (newTag && !tags.includes(newTag)) {
@@ -158,6 +163,7 @@ const CreateArticleForm: React.FC = () => {
                 </button>
             </form>
         </div>
-    );};
+    );
+};
 
 export default CreateArticleForm;

@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import styles from '../styles/Sidebar.module.css';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
+import styles from '../styles/Sidebar.module.css';
 import { FaHotel } from "react-icons/fa6";
 import { GiCharm } from "react-icons/gi";
 import { IoAddCircleSharp } from "react-icons/io5";

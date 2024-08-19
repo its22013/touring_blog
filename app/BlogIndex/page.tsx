@@ -92,7 +92,7 @@ const Home: React.FC = () => {
             newSet.delete(articleId);
             return newSet;
           });
-          console.log('お気に入りから削除しました。');
+          alert('お気に入りから削除しました。');
         } else {
           await updateDoc(favoritesDocRef, {
             articleIds: arrayUnion(articleId)

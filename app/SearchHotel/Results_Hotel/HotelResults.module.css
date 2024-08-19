@@ -1,0 +1,164 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
+  margin-right: 320px;
+  background-color: #f4f4f4;
+  /* background-image: url('https://png.pngtree.com/background/20230519/original/pngtree-railroad-track-wallpapers-picture-image_2660027.jpg'); */
+}
+
+.title {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 5px;
+  text-align: center;
+  color: #000000;
+  border: 1px solid #ddd;
+  margin-left: 34%;
+  margin-right: 34%;
+  height: 50px;
+  border-radius: 12px;
+  background-color: rgb(255, 255, 255);
+}
+
+.hotel_list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hotel_item {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 20px;
+}
+
+.hotelImageUrl {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.hotel_info {
+  padding-left: 15px;
+  margin-right: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel_info_top {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hotel_info_bottom {
+  flex: 1;
+}
+
+.hotel_info h2 {
+  font-size: 24px;
+  margin-top: 15px;
+  color: #0070f3;
+  cursor: pointer;
+}
+
+.hotel_info p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.room_list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.room_item {
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.room_item h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.room_item p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.room_item a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.room_item a:hover {
+  text-decoration: underline;
+}
+
+.error_message, .loading_message {
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.hotel_image_Address {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.hotel_adress {
+  font-size: 14px;
+}
+.hotel_adress:hover {
+  color: #0070f3;
+}
+
+.hotelMinPrice {
+  margin-left: 20px;
+  margin-right: 20px;
+  color: red;
+  font-size: 24px;
+}
+
+
+.star-rating {
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  font-size: 1.5rem;
+  color: #ddd;
+  margin-right: 2px;
+}
+
+.star.filled {
+  color: #ffd700; /* 黄色の星色 */
+}
+
+.reviewAverage_container{
+  display: flex;
+}
+
+.reviewAverage {
+  font-size: 24px;
+  margin-bottom: 15px;
+  margin-right: 10px;
+  color: #f44336;
+}

@@ -1,0 +1,142 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100vh;
+    margin-right: 320px;
+    background-color: #f4f4f4; 
+}
+
+.formContainer {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    margin-left: 12%;
+    margin-right: 12%;
+    margin-bottom: 30px;
+    padding: 20px;
+    flex-direction: column;
+}
+
+.formHeader {
+    font-size: 24px; 
+    font-weight: bold; 
+    margin-bottom: 20px;
+    color: #333; 
+    text-align: center; 
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; 
+    margin-bottom: 20px;
+}
+
+.formField label {
+    font-size: 16px;
+    color: #555; 
+    font-weight: 500;
+}
+
+.inputText,
+.textarea,
+.inputFile {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; 
+}
+
+.textarea {
+    min-height: 150px;
+    resize: vertical; 
+}
+
+.inputText:focus,
+.textarea:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+    outline: none; 
+}
+
+.button {
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    margin: 20px auto; /* ボタンを中央に配置 */
+    display: block;
+}
+
+.button:hover {
+    background-color: #0056b3; 
+    transform: translateY(-2px);
+}
+
+.button:active {
+    background-color: #004494;
+    transform: translateY(0); 
+}
+
+.fileInputWrapper {
+    margin-top: 10px;
+}
+
+.imagePreview {
+    margin-top: 10px;
+    max-width: 100%; /* 最大幅をフォームの幅に合わせる */
+    height: auto; /* 高さを自動調整 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* タグ入力フィールドと追加ボタンを横に並べる */
+.tagInputWrapper {
+    display: flex;
+    align-items: center;
+    margin-top: -27px;
+}
+
+.inputText {
+    flex: 1;
+    margin-right: 10px; /* ボタンとの間にスペースを追加 */
+}
+
+.tagsList {
+    margin-top: 10px;
+}
+
+.tagItem {
+    display: inline-block;
+    background-color: #edeeee;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border: 2px solid #ccc;
+}
+
+.tagItem:hover {
+    background-color: #c3c3c3;
+}
+
+.removeTagButton {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+}

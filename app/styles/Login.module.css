@@ -1,23 +1,40 @@
 /* src/components/Login.module.css */
 
+.parent {
+  background-image: url('/images/touring01.png');
+  background-size: cover; 
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #f4f4f4; /* 背景色を設定 */
+    height: 300px;
+    width: 300px;
+    background-color: #f4f4f4; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
   
   .title {
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 40px;
     color: #333;
+    margin-bottom: 80px;
   }
   
   .loginButton {
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 25px 35px;
+    font-size: 24px;
     font-weight: bold;
     color: #fff;
     background-color: #007bff;
@@ -29,5 +46,10 @@
   
   .loginButton:hover {
     background-color: #0056b3;
+  }
+
+  .icon {
+    margin-right: 0.5rem;
+    font-size: 23px;
   }
   

@@ -1,0 +1,46 @@
+/* パンくずリスト */
+.breadcrumbs {
+    font-size: 14px;
+    color: #555;
+    background-color: hsl(0, 0%, 100%);
+    padding: 20px;
+    border-bottom: 1px solid #bbbbbb;
+  }
+
+.home {
+  margin-left: 12%;
+}
+
+.breadcrumbs a {
+    color: #0070f3;
+    text-decoration: none;
+    font-size: 18px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    margin: 0 5px; /* 各要素間のスペースを調整 */
+}
+
+.breadcrumbs > span:first-of-type {
+    margin-left: 0; /* 最初のスペースは左側にマージンなし */
+}
+
+.breadcrumbs > span:last-of-type {
+    margin-right: 0; /* 最後のスペースは右側にマージンなし */
+}
+
+.breadcrumbItem {
+    color: #0070f3;
+    text-decoration: none;
+}
+
+.breadcrumbItem:hover {
+    text-decoration: underline;
+}

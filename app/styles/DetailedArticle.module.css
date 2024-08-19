@@ -1,0 +1,95 @@
+/* DetailedArticle.module.css */
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-right: 320px;
+  background-color: #f4f4f4;
+  max-width: 100%;
+}
+
+/* 投稿のタイトル */
+.title {
+  margin-top: 5px;
+  font-size: 30px;
+  position: relative;
+  margin: 0;
+  margin-bottom: 20px; /* タイトルの下の余白を追加 */
+  font-weight: bold;
+}
+
+/* タイトル下の下線 */
+.title::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: #a6a6a6; 
+  position: absolute;
+  left: 0;
+  bottom: -10px; 
+  width: 100%;
+}
+
+.content {
+  max-width: 800px;
+  overflow: hidden;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.loading, .error {
+  text-align: center;
+  color: #666;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.image {
+  max-width: 90%;
+  margin-left: 24px;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 15px;
+  margin-bottom: 1rem;
+}
+
+.input {
+  white-space: pre-wrap; /* 長いテキストを折り返す */
+  overflow-wrap: break-word; /* 長い単語が折り返されるようにする */
+  margin-bottom: 1rem;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.tags {
+  margin-top: 1rem;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 4px;
+  margin-right: 5px;
+  font-size: 0.875rem;
+  
+}
+
+.url a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.url a:hover {
+  text-decoration: underline;
+}

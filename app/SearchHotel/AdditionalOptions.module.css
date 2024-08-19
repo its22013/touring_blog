@@ -1,0 +1,38 @@
+.options_container {
+  background-color: #e2e2e2;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-bottom: 20px;
+  width: 483px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.options_title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.option_label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.submit_button {
+  background-color: #48a0ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit_button:hover {
+  background-color: #0056b3;
+}
+

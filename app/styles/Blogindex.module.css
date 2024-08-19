@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  flex-direction: row; /* 横並びにする */
+  padding: 20px;
+  box-sizing: border-box;
+  width: calc(100% - 320px); /* Sidebar の幅を引いた幅に設定 */
+  height: 100vh;
+  background-color: #f4f4f4; 
+  overflow-y: auto; /* スクロールを追加 */
+}
+
+.mainContent {
+  flex: 1;
+  margin-right: 320px;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.post {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.postsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* 投稿間のスペース */
+}
+
+.postItem {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(70, 70, 70, 0.1);
+  display: flex; /* フレックスボックスでレイアウト */
+  align-items: flex-start; /* コンテンツを上部に揃える */
+  gap: 15px; /* テキストと画像の間にスペースを追加 */
+}
+
+.postTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.postContent {
+  flex: 1; /* テキストが画像の左側に広がるようにする */
+  font-size: 16px;
+  margin-bottom: 10px;
+  word-wrap: break-word; /* テキストが長い場合に自動的に改行 */
+}
+
+.postDate {
+  font-size: 14px;
+  color: #777;
+}
+
+.postImage {
+  flex-shrink: 0; /* 画像のサイズを固定 */
+  max-width: 150px; /* 画像のサイズ調整 */
+  height: auto;
+  border-radius: 8px; /* 画像の角を丸める */
+  margin-left: auto; /* 画像を右側に寄せる */
+}
+
+.postLink {
+  display: block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.postLink:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #f44336;
+  font-size: 16px;
+  text-align: center;
+}
+
+.mapContainer {
+  margin-top: 20px; /* マップの上部スペース */
+}
+
+.mapContainer iframe {
+  width: 100%; /* フレックスボックスでの幅調整 */
+  height: 450px; /* 高さの調整 */
+  border: 0;
+  border-radius: 8px; /* 角を丸める */
+}
+
+/* 関連URL */
+.url {
+  background-color: #007bff;
+  padding: 5px 10px;
+}
+
+/* 投稿の日付 */
+.date {
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+
+
+.loading {
+  text-align: center;
+  font-size: 34px;
+  color: #555;
+}

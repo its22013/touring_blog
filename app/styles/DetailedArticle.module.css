@@ -93,3 +93,17 @@
 .url a:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+  .pageContainer{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-right: 0; 
+  background-color: #f4f4f4;
+  max-width: 100%;
+  }
+  .title {
+    font-size: 24px;
+  }
+}

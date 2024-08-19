@@ -44,3 +44,9 @@
 .breadcrumbItem:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .home {
+        margin-right: 12%;
+    }
+}

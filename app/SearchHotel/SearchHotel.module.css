@@ -158,3 +158,81 @@
   margin-left: 20px;
   font-size: 24px;
 }
+
+/* スマートフォン用のスタイル */
+@media (max-width: 768px) {
+  .container {
+    margin-right: 0; /* スマートフォンでは右のマージンを削除 */
+  }
+
+  .search_form_conatiner {
+    flex-direction: column; /* 縦に並べる */
+    margin-left: 10px; /* 左右のマージンを調整 */
+    margin-right: 10px;
+  }
+
+  .search_hotel_container {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%; /* 幅を100%に */
+    box-shadow: none; /* ボックスシャドウを削除 */
+    margin-top: 20px; /* 上部マージンを調整 */
+  }
+
+  .key_form {
+    flex-direction: column; /* 縦に並べる */
+    align-items: stretch; /* フォームを全幅に */
+    margin: 20px;
+  }
+
+  .form_01 {
+    width: 100%; /* 幅を100%に */
+    margin-bottom: 10px; /* 下部マージンを追加 */
+  }
+
+  .button {
+    width: 100%; /* ボタン幅を100%に */
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 18px; /* フォントサイズを調整 */
+  }
+
+  .button02 {
+    width: 100%; /* 幅を100%に */
+    font-size: 16px; /* フォントサイズを調整 */
+  }
+
+  .options_toggle {
+    font-size: 16px; /* フォントサイズを調整 */
+    margin-left: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .text02 {
+    font-size: 20px; /* フォントサイズを調整 */
+    margin-left: 10px;
+  }
+}
+
+/* スマートフォン用の追加スタイル */
+@media (max-width: 480px) {
+  .title {
+    font-size: 24px; /* タイトルのフォントサイズを調整 */
+    margin-bottom: 10px; /* 下部マージンを調整 */
+  }
+
+  .title::after {
+    height: 1px; /* 下線の高さを調整 */
+  }
+
+  .form_01 {
+    font-size: 14px; /* 入力フィールドのフォントサイズを調整 */
+  }
+
+  .button {
+    font-size: 14px; /* ボタンのフォントサイズを調整 */
+    margin: 20px;
+    text-shadow: 2px, #7e7e7e;
+  }
+}

@@ -36,3 +36,11 @@
   background-color: #0056b3;
 }
 
+/* スマートフォン用のスタイル */
+@media (max-width: 768px) {
+  .options_container {
+    padding-left: 20px;
+    align-items: flex-start;
+    width: 300px;
+  }
+}

@@ -162,3 +162,44 @@
   margin-right: 10px;
   color: #f44336;
 }
+
+/* メディアクエリ */
+@media (max-width: 768px) {
+  .container {
+    margin-right: 0; /* スマホでは右側のマージンをなくす */
+  }
+
+  .title {
+    width: 34%;
+    font-size: 20px;
+  }
+
+  .hotel_item {
+    flex-direction: column; /* 縦に並べる */
+    margin: 20px; /* マージンをなくす */
+  }
+
+  .hotel_info {
+    padding: 10px;
+  }
+
+  .hotel_info h2 {
+    font-size: 18px;
+  }
+
+  .hotelMinPrice {
+    font-size: 16px;
+  }
+
+  .reviewAverage {
+    font-size: 18px;
+  }
+
+  .star-rating {
+    font-size: 1.2rem; /* 星のサイズを小さくする */
+  }
+  .hotelImageUrl {
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+}

@@ -214,4 +214,8 @@
         max-width: 100%; /* 画像の最大幅を100%に設定 */
         height: auto; /* 高さを自動に設定 */
     }
+
+    .title::after {
+        width: 95%;
+    }
 }

@@ -105,7 +105,7 @@ const Sidebar: React.FC = () => {
         <span><h2 className={styles.text}>Home</h2></span>
       </div>
 
-      <div className={`${styles.favorite} ${activePath === '/bookmarks' ? styles.active : ''}`} onClick={() => router.push('/bookmarks')}>
+      <div className={`${styles.favorite} ${activePath === '/BookMark' ? styles.active : ''}`} onClick={() => router.push('/BookMark')}>
         <GiCharm className={styles.favoriteIcon} />
         <span><h2 className={styles.text}>Book Mark</h2></span>       
       </div>

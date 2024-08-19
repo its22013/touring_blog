@@ -1,120 +1,136 @@
-/* Sidebar.module.css */
-
 .sidebar {
-    background-color: #00d9c09b;
-    position: fixed;
-    bottom: 0;
-    right: 0; 
-    width: 320px;
-    height: 100vh;
-    overflow-y: auto; 
-    box-sizing: border-box;
-  }
-  
-  .userIcon {
-    width: 100px; 
-    height: 100px;
-    border-radius: 50%; 
-    display: block;
-    margin: 0px auto; 
-  }
-  
-  .name {
-    text-align: center;
-    align-items: center;
-    margin-bottom: 50px;
-    cursor: pointer;
-  }
-  
-  .favorite {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    border: solid 1.5px #f0f0f0;
-    padding: 10px;
-    width: 100%;
-    height: 70px;
-    font-size: 24px;
-    box-sizing: border-box; /* パディングとボーダーを含めたサイズ指定 */
-  }
-  
-  .favorite:hover {
-    background-color: #23af9f9b;
-  }
-  
-  .favorite span {
-    margin-right: 10px;
-  }
-  
-  .favoriteIcon {
-    width: 30px; /* アイコンの幅 */
-    height: 30px; /* アイコンの高さ */
-    margin-left: 20px;
-  }
-  
-  .text {
-    margin-left: 15px;
-    font-size: 29px;
-  }
-  
-  .logoutButton {
-    display: block;
-    width: 85%;
-    font-size: 16px;
-    color: #fff;
-    background-color: #f44336;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin-bottom : 23px;
-    margin-left: 25px;
-    height: 42px;
-    margin-top: 34px;
-  }
-  
-  .logoutButton:hover {
-    background-color: #d32f2f; /* ホバー時の背景色 */
+  background-color: #00d9c09b;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.userIcon {
+  width: 100px; 
+  height: 100px;
+  border-radius: 50%; 
+  display: block;
+  margin: 0px auto;
+}
+
+.name {
+  text-align: center;
+  align-items: center;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+
+.favorite {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: solid 1.5px #f0f0f0;
+  padding: 10px;
+  width: 100%;
+  height: 70px;
+  font-size: 24px;
+  box-sizing: border-box;
+}
+
+.favorite:hover {
+  background-color: #23af9f9b;
+}
+
+.favorite span {
+  margin-right: 10px;
+}
+
+.favoriteIcon {
+  width: 30px;
+  height: 30px;
+  margin-left: 20px;
+}
+
+.text {
+  margin-left: 15px;
+  font-size: 29px;
+}
+
+.logoutButton, .loginButton {
+  display: block;
+  width: 85%;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 23px;
+  margin-left: 25px;
+  height: 42px;
+  margin-top: 34px;
+}
+
+.logoutButton {
+  background-color: #f44336;
+}
+
+.logoutButton:hover {
+  background-color: #d32f2f;
+}
+
+.loginButton {
+  background-color: #3a70f8;
+}
+
+.loginButton:hover {
+  background-color: #542eff;
+}
+
+.currentDateTime {
+  margin-top: 15px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.active {
+  background-color: #23af9f9b;
+  color: #000000;
+  border-left: 4px solid #000000;
+}
+
+/* ハンバーガーメニューボタン */
+.hamburger {
+  display: none; /* デスクトップでは非表示 */
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+}
+
+/* モバイル用 */
+@media (max-width: 844px) {
+  .sidebar {
+      width: 100%;
+      height: 100vh;
+      transform: translateX(100%);
   }
 
-  .loginButton {
-    display: block;
-    width: 85%;
-    font-size: 16px;
-    color: #fff;
-    background-color: #3a70f8 ;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin-bottom : 23px;
-    margin-left: 25px;
-    height: 42px;
-    margin-top: 34px;
+  .sidebar.open {
+      transform: translateX(0);
   }
-  
-  .loginButton:hover {
-    background-color: #542eff; /* ホバー時の背景色 */
-  }
-  
 
-  
-  /* 現時刻のスタイル */
-  .currentDateTime {
-    margin-top: 15px;
-    font-size: 17px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    text-align: center;
+  .hamburger {
+      display: block; /* モバイルでのみ表示 */
   }
-  
-  .active {
-    background-color: #23af9f9b;
-    border-left: 4px solid #000000; 
-  }
-  
-  .active {
-    background-color: #23af9f9b; /* 現在のページに応じて変更する色 */
-    color: #000000; /* 現在のページに応じて変更する色 */
-  }
+}

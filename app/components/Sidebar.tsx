@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import styles from '../styles/Sidebar.module.css';
-import { FaHotel } from "react-icons/fa6";
+import { FaHotel, FaChrome, FaBars } from "react-icons/fa6";
 import { GiCharm } from "react-icons/gi";
 import { IoAddCircleSharp } from "react-icons/io5";
-import { FaHome } from "react-icons/fa";
+import styles from '../styles/Sidebar.module.css';
 import { auth } from '../hooks/firebaseConfig';
+import { FaHome } from 'react-icons/fa';
 
 const Sidebar: React.FC = () => {
   const [userName, setUserName] = useState<string>('ユーザー');
@@ -16,9 +16,10 @@ const Sidebar: React.FC = () => {
   const [currentDateTime, setCurrentDateTime] = useState<string>('');
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [activePath, setActivePath] = useState<string>('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const router = useRouter();
 
-  // ログイン状態の取得と更新
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -36,7 +37,6 @@ const Sidebar: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  // 現時刻の表示
   useEffect(() => {
     const updateCurrentDateTime = () => {
       const now = new Date();
@@ -59,7 +59,6 @@ const Sidebar: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // ログアウト処理
   const handleLogout = () => {
     signOut(auth).then(() => {
       console.log('User signed out');
@@ -69,14 +68,11 @@ const Sidebar: React.FC = () => {
     });
   };
 
-  // ログインページへの遷移処理
   const handleLoginRedirect = () => {
     router.push('/login');
   };
 
-  // ページのパスを設定
   useEffect(() => {
-    // クライアントサイドでのみ `window.location.pathname` を使用
     const handleRouteChange = () => {
       setActivePath(window.location.pathname);
     };
@@ -89,46 +85,71 @@ const Sidebar: React.FC = () => {
     };
   }, []);
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobileView = window.innerWidth <= 844;
+      setIsMobile(isMobileView);
+      if (!isMobileView) {
+        setIsSidebarOpen(true); // Web画面ではサイドバーを常に表示
+      } else {
+        setIsSidebarOpen(false); // モバイル画面ではデフォルトで非表示
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <aside className={styles.sidebar}>
-      {/* 現時刻の表示 */}
-      <div className={styles.currentDateTime}>{currentDateTime}</div>
-      
-      {userPhotoURL && <img src={userPhotoURL} alt="ユーザーアイコン" className={styles.userIcon} />}
-      <div onClick={() => router.push('/MyArticle')}>
-        <h1 className={styles.name}>{userName}</h1>
-      </div>
-
-      {/* ホームを表示 */}
-      <div className={`${styles.favorite} ${activePath === '/BlogIndex' ? styles.active : ''}`} onClick={() => router.push('/BlogIndex')}>
-        <FaHome className={styles.favoriteIcon} />
-        <span><h2 className={styles.text}>Home</h2></span>
-      </div>
-
-      <div className={`${styles.favorite} ${activePath === '/BookMark' ? styles.active : ''}`} onClick={() => router.push('/BookMark')}>
-        <GiCharm className={styles.favoriteIcon} />
-        <span><h2 className={styles.text}>Book Mark</h2></span>       
-      </div>
-    
-      {/* 投稿作成を表示 */}
-      <div className={`${styles.favorite} ${activePath === '/CreateArticle' ? styles.active : ''}`} onClick={() => router.push('/CreateArticle')}>
-        <IoAddCircleSharp className={styles.favoriteIcon}/>
-        <h2 className={styles.text}>Create article</h2>
-      </div>
-
-      {/* 道のりから宿泊施設の検索を表示 */}
-      <div className={`${styles.favorite} ${['/SearchHotel', '/SearchHotel/Results_Hotel'].includes(activePath) ? styles.active : ''}`} onClick={() => router.push('/SearchHotel')}>
-        <FaHotel className={styles.favoriteIcon} />
-        <span><h2 className={styles.text}>Search Hotel</h2></span>
-      </div>
-
-      {/* ログインしていない場合はログインボタンを表示 */}
-      {!isLoggedIn ? (
-        <button onClick={handleLoginRedirect} className={styles.loginButton}>ログイン</button>
-      ) : (
-        <button onClick={handleLogout} className={styles.logoutButton}>ログアウト</button>
+    <>
+      {isMobile && (
+        <div className={styles.hamburger} onClick={toggleSidebar}>
+          <FaBars />
+        </div>
       )}
-    </aside>
+      <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ''}`}>
+        <div className={styles.currentDateTime}>{currentDateTime}</div>
+        
+        {userPhotoURL && <img src={userPhotoURL} alt="ユーザーアイコン" className={styles.userIcon} />}
+        <div onClick={() => router.push('/MyArticle')}>
+          <h1 className={styles.name}>{userName}</h1>
+        </div>
+
+        <div className={`${styles.favorite} ${activePath === '/BlogIndex' ? styles.active : ''}`} onClick={() => router.push('/BlogIndex')}>
+          <FaHome className={styles.favoriteIcon} />
+          <span><h2 className={styles.text}>Home</h2></span>
+        </div>
+
+        <div className={`${styles.favorite} ${activePath === '/BookMark' ? styles.active : ''}`} onClick={() => router.push('/BookMark')}>
+          <GiCharm className={styles.favoriteIcon} />
+          <span><h2 className={styles.text}>Book Mark</h2></span>       
+        </div>
+      
+        <div className={`${styles.favorite} ${activePath === '/CreateArticle' ? styles.active : ''}`} onClick={() => router.push('/CreateArticle')}>
+          <IoAddCircleSharp className={styles.favoriteIcon}/>
+          <h2 className={styles.text}>Create article</h2>
+        </div>
+
+        <div className={`${styles.favorite} ${['/SearchHotel', '/SearchHotel/Results_Hotel'].includes(activePath) ? styles.active : ''}`} onClick={() => router.push('/SearchHotel')}>
+          <FaHotel className={styles.favoriteIcon} />
+          <span><h2 className={styles.text}>Search Hotel</h2></span>
+        </div>
+
+        {!isLoggedIn ? (
+          <button onClick={handleLoginRedirect} className={styles.loginButton}>ログイン</button>
+        ) : (
+          <button onClick={handleLogout} className={styles.logoutButton}>ログアウト</button>
+        )}
+      </aside>
+    </>
   );
 };
 

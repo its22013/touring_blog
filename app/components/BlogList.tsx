@@ -28,7 +28,7 @@ const BlogList: React.FC = () => {
     return (
         <div>
             <h1>Blog Posts</h1>
-            <ul>
+            <ul>BlogList
                 {posts.map(post => (
                     <li key={post.id}>
                         <h2>{post.title}</h2>

@@ -121,9 +121,16 @@
 /* モバイル用 */
 @media (max-width: 844px) {
   .sidebar {
-      width: 100%;
-      height: 100vh;
-      transform: translateX(100%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #00d9c0e7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* 他の要素よりも前面に表示されるように */
+    transition: transform 0.3s ease;
+    transform: translateX(-100%); /* 初期状態で隠す */
   }
 
   .sidebar.open {
@@ -131,6 +138,24 @@
   }
 
   .hamburger {
-      display: block; /* モバイルでのみ表示 */
+    display: block;
+    position: absolute;
+    top: 25px;
+    right: 10px;
+    z-index: 1001;
+    cursor: pointer;
+    font-size: 34px;
+  }
+  .currentDateTime {
+    margin-top: 50px;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .active {
+    background-color: #0086779b;
+    color: #000000;
+    border-left: 4px solid #000000;
   }
 }

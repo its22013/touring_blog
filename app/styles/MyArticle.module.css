@@ -168,3 +168,58 @@
 .post_not01:hover {
     color: rgb(185, 9, 9);
 }
+
+/* スマホ用メディアクエリ */
+@media (max-width: 844px) {
+    .container {
+        margin-right: 0; /* サイドバーの幅を取り除く */
+    }
+
+    .breadcrumbs {
+        margin-right: 0; /* サイドバーの幅を取り除く */
+    }
+
+    .articleItem {
+        flex-direction: column; /* 投稿アイテムを縦に並べる */
+    }
+
+    .articleImage {
+        max-width: 100%; /* 画像の幅を100%にする */
+        margin-right: 0; /* 右マージンを取り除く */
+        margin-bottom: 15px; /* 下マージンを追加する */
+    }
+
+    .subcontainer {
+        margin-left: 0; /* サブコンテナの左マージンを取り除く */
+    }
+
+    .title {
+        font-size: 24px; /* タイトルのフォントサイズを調整 */
+        margin-bottom: 15px; /* タイトルの下の余白を調整 */
+    }
+
+    .articleTitle {
+        font-size: 24px; /* 記事タイトルのフォントサイズを調整 */
+    }
+
+    .date {
+        position: static; /* 投稿日の位置を調整 */
+        margin-top: 10px; /* マージンを調整 */
+    }
+
+    .tagsList {
+        margin-top: 20px; /* タグリストの上マージンを調整 */
+    }
+
+    .tag {
+        font-size: 14px; /* タグのフォントサイズを調整 */
+    }
+
+    .url {
+        padding: 5px; /* 関連URLのパディングを調整 */
+    }
+
+    .post_not, .post_not01 {
+        font-size: 24px; /* 投稿がないときのフォントサイズを調整 */
+    }
+}

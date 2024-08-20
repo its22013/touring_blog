@@ -82,12 +82,23 @@
     margin-bottom: 5px; /* アイコンとユーザー名の間のスペース */
 }
 
+.imageContainer {
+    width: 300px; /* 枠の幅を指定 */
+    height: 200px; /* 枠の高さを指定 */
+    overflow: hidden; /* 枠からはみ出した部分を隠す */
+    border-radius: 8px; /* 角を丸くする */
+    background-color: #f4f4f4; /* 枠の背景色 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .image {
-    max-width: 30%;
-    height: 100%; /* 投稿の高さに合わせる */
-    object-fit: cover; /* 画像が枠に合わせてカバーする */
+    max-width: 300px;
+    max-height: 100%;
+    object-fit: cover; /* 画像が枠に合うように表示 */
     border-radius: 8px;
-    margin-right: 15px;
+    margin-right: 34px;
 }
 
 .username {

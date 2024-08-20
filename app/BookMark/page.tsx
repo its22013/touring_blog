@@ -6,7 +6,7 @@ import { db } from '../hooks/firebaseConfig';
 import Sidebar from '../components/Sidebar';
 import styles from '../styles/List.module.css';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaHeart, FaTrashAlt } from 'react-icons/fa';
 
 interface Article {
   id: string; 
@@ -96,10 +96,12 @@ const Favorites: React.FC = () => {
             articles.map((article) => (
               <article key={article.id} className={styles.post}>
                 <div className={styles.box01}>
-                  <img src={article.image} className={styles.image} alt="記事画像"/>
+                  <div>
+                    <img src={article.image || '/images/noimages.png'} className={styles.image} alt="記事画像"/>
+                  </div>
                   <div className={styles.iconnemeset}>
                     <img 
-                      src={article.userPhotoURL || '/images/default-icon.png'} 
+                      src={article.userPhotoURL || '/images/noimages.png'} 
                       alt="ユーザーアイコン" 
                       className={styles.icon} 
                     />
@@ -116,13 +118,16 @@ const Favorites: React.FC = () => {
                     </div> 
                   </div>
                 </div>
-                <strong className={styles.postdate}>投稿日: {new Date(article.created_at.seconds * 1000).toLocaleDateString()}</strong>
+                <strong className={styles.postdate}>投稿日: {new Date(article.created_at.seconds * 1000).toLocaleDateString()}</strong> 
                 <button 
-                  className={styles.deleteButton} 
+                  className={styles.favoriteButton} 
                   onClick={() => handleDeleteFavorite(article.id)}
-                  aria-label="お気に入りから削除"
+                  aria-label={favorites.has(article.id) ? 'Remove from favorites' : 'Add to favorites'}
                 >
-                  <FaTrashAlt className={styles.deleteIcon} /> {/* 削除アイコン */}
+                  {favorites.has(article.id) ? 
+                    <FaHeart className={styles.favoriteIcon01} /> : 
+                    <FaHeart className={styles.favoriteIcon02} />
+                  }
                 </button>
               </article>
             ))

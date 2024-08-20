@@ -120,7 +120,11 @@ const MyProfile: React.FC = () => {
                             {articles.map((article) => (
                                 <li key={article.id} className={styles.articleItem}>
                                     {/* 写真 */}
-                                    {article.image && <img src={article.image} alt="Article Image" className={styles.articleImage} />}
+                                    {article.image ? (
+                                        <img src={article.image} alt="Article Image" className={styles.articleImage} />
+                                    ) : (
+                                        <img src="/images/noimages.png" alt="No Image Available" className={styles.articleImage} />
+                                    )}
 
                                     <div className={styles.subcontainer}>
                                         {/* タイトル */}

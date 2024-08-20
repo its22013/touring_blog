@@ -87,7 +87,11 @@ const DetailedArticle: React.FC = () => {
                         <div className={styles.url}>
                             {article.url && <a href={article.url} target="_blank" rel="noopener noreferrer">関連URL</a>}
                         </div>
-                        {imageUrl && <img src={imageUrl} alt="Article Image" className={styles.image} />}
+                        {imageUrl ? (
+                            <img src={imageUrl} alt="Article Image" className={styles.image} />
+                        ) : (
+                            <img src="/images/noimages.png" alt="No Image Available" className={styles.image} />
+                        )}
                         <p className={styles.input}>{article.content}</p>
                     </>
                 ) : (

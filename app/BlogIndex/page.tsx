@@ -117,10 +117,10 @@ const Home: React.FC = () => {
             articles.map((article) => (
               <article key={article.id} className={styles.post}>
                 <div className={styles.box01}>
-                  <img src={article.image} className={styles.image} alt="記事画像"/>
+                  <img src={article.image || '/images/noimages.png'} className={styles.image} alt="記事画像"/>
                   <div className={styles.iconnemeset}>
                     <img 
-                      src={article.userPhotoURL || '/images/default-icon.png'} 
+                      src={article.userPhotoURL || '/images/noimages.png'} 
                       alt="ユーザーアイコン" 
                       className={styles.icon} 
                     />
